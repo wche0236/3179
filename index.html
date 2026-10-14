@@ -1,57 +1,288 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My first HTML Document</title>
+
+    <title>Outdoor Recreation in Australia</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/vega@6"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-lite@6"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-embed@7"></script>
+
+    <link rel="stylesheet" href="css/styles.css">
 </head>
+
 <body>
-    <h1>1. Introduction to HTML</h1>
-    <h2>1.1 Creating Paragraphs</h2>
-    <p>Unit: FIT3179 Data Visualisation</p>
-    <p>This is a paragraph.</p>
 
-    <h2>1.2 Creating Tables</h2>
-    <table border="1" cellpadding="10%">
-        <tr>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Grade</th>
-        </tr>
-        <tr>
-            <th>John</th>
-            <th>Doe</th>
-            <th>HD</th>
-        </tr>
-        <tr>
-            <th>Jill</th>
-            <th>Jackson</th>
-            <th>D</th>
-        </tr>
-        <tr>
-            <th>Jane</th>
-            <th>Smith</th>
-            <th>C</th>
-        </tr>
-    </table>
-    <h3>1.2.1 Embedding an image</h3>
-    <img src="leopard.jpg"/>
+    <main class="dashboard">
 
-    <h3>1.2.2 Creating hyperlink</h3>
-    <a href="https://www.monash.edu/">Click here to view the Monash Website</a>
+        <!-- HEADER -->
+        <header class="dashboard-header">
+            <p class="eyebrow">AUSTRALIAN RECREATION INSIGHTS</p>
 
-    <h3>1.2.3 Creating sections</h3>
-    <div style="color: red">
-        <h2>Heading of first group</h2>
-        <p>1st paragraph</p>
-    </div>
+            <h1>Outdoor Recreation in Australia</h1>
 
-    <div style="color: green">
-        <h2>Heading of second group</h2>
-        <p>2nd paragraph</p>
-    </div>
+            <p class="dashboard-intro">
+                Explore how Australians engage with outdoor recreation,
+                from popular activities and participation differences
+                to motivations, barriers and national parks.
+            </p>
+        </header>
 
-    <h2>Added this new heading directly on GitHub</h2>
-    <p>This is a paragraph.</p>
+
+        <!-- SECTION 1 -->
+        <section class="story-section">
+
+            <div class="section-heading">
+                <span class="section-number">01</span>
+                <div>
+                    <h2>How Do Australians Participate?</h2>
+                    <p>
+                        Discover popular activities and differences
+                        between male and female participants.
+                    </p>
+                </div>
+            </div>
+
+            <div class="chart-grid two-columns">
+
+                <div class="chart-card">
+                    <div id="vis1" class="vis-container"></div>
+
+                    <p class="chart-description">
+                        Compare the estimated number of participants
+                        across selected outdoor recreation activities
+                        to identify the most popular choices.
+                    </p>
+                </div>
+
+                <div class="chart-card">
+                    <div id="vis2" class="vis-container"></div>
+
+                    <p class="chart-description">
+                        Male and female representation differs
+                        across activities, revealing which
+                        activities have larger gender gaps.
+                    </p>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- SECTION 2 -->
+        <section class="story-section">
+
+            <div class="section-heading">
+                <span class="section-number">02</span>
+                <div>
+                    <h2>What Encourages or Prevents Participation?</h2>
+                    <p>
+                        Explore how motivations and barriers
+                        differ across demographic groups.
+                    </p>
+                </div>
+            </div>
+
+            <div class="chart-grid two-columns">
+
+                <div class="chart-card">
+                    <div id="vis3" class="vis-container"></div>
+
+                    <p class="chart-description">
+                        Motivations for physical activity vary
+                        across age groups. Darker cells represent
+                        motivations reported more frequently
+                        by participants.
+                    </p>
+                </div>
+
+                <div class="chart-card">
+                    <div id="vis5" class="vis-container"></div>
+
+                    <p class="chart-description">
+                        Female non-participants report poor health
+                        or injury more frequently than males
+                        (29.6% versus 24.6%), while males
+                        more frequently cite physically
+                        demanding work (7.6% versus 4.1%).
+                    </p>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- SECTION 3 -->
+        <section class="story-section">
+
+            <div class="section-heading">
+                <span class="section-number">03</span>
+                <div>
+                    <h2>Where Does Recreation Take Place?</h2>
+                    <p>
+                        Explore regional participation,
+                        national park locations and park visitation.
+                    </p>
+                </div>
+            </div>
+
+            <!-- TWO AUSTRALIA MAPS -->
+            <div class="chart-grid two-columns">
+
+                <div class="chart-card">
+                    <div id="map1" class="vis-container"></div>
+
+                    <p class="chart-description">
+                        Weekly physical activity participation
+                        varies across Australian states and
+                        territories in 2025.
+                    </p>
+                </div>
+
+                <div class="chart-card">
+                    <div id="map3" class="vis-container"></div>
+
+                    <p class="chart-description">
+                        Each dot represents a national park
+                        in the dataset, showing how parks
+                        are distributed across Australia.
+                    </p>
+                </div>
+
+            </div>
+
+            <!-- NEW SOUTH WALES MAP AND EXPLANATION -->
+            <div class="chart-grid two-columns">
+
+                <div class="chart-card">
+                    <div id="map2" class="vis-container"></div>
+
+                    <p class="chart-description">
+                        Larger circles represent parks receiving
+                        more domestic visits among the 20 most
+                        visited parks in New South Wales
+                        during 2024–25.
+                    </p>
+                </div>
+
+                <div class="context-card">
+                    <p class="context-label">A CLOSER LOOK</p>
+
+                    <h3>From National Coverage to Local Visitation</h3>
+
+                    <p>
+                        The Australian maps show regional
+                        participation and the geographic
+                        distribution of national parks.
+                    </p>
+
+                    <p>
+                        The New South Wales map takes a closer
+                        look at park visitation, showing
+                        how visitor numbers differ among
+                        the most visited parks.
+                    </p>
+
+                    <p>
+                        Together, these maps highlight different
+                        aspects of recreation: participation,
+                        park locations and visitor demand.
+                    </p>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- SECTION 4 -->
+        <section class="story-section">
+
+            <div class="section-heading">
+                <span class="section-number">04</span>
+                <div>
+                    <h2>How Have Recreation Habits Changed?</h2>
+                    <p>
+                        A historical comparison of leisure
+                        activities among Australian children.
+                    </p>
+                </div>
+            </div>
+
+            <div class="chart-grid two-columns">
+
+                <div class="chart-card">
+                    <div id="vis4" class="vis-container"></div>
+
+                    <p class="chart-description">
+                        Between 2006 and 2012, internet access
+                        among children aged 5 to 14 increased
+                        from 64.9% to 89.7%, while bike riding
+                        declined from 67.8% to 63.5%.
+                    </p>
+                </div>
+
+                <div class="context-card">
+                    <p class="context-label">HISTORICAL PERSPECTIVE</p>
+
+                    <h3>Changing Childhood Leisure Habits</h3>
+
+                    <p>
+                        Internet access increased by 24.8
+                        percentage points between 2006 and 2012.
+                    </p>
+
+                    <p>
+                        Over the same period, bike riding
+                        declined by 4.3 percentage points,
+                        while reading for pleasure declined
+                        by 3.4 percentage points.
+                    </p>
+
+                    <p>
+                        These trends describe historical
+                        changes and do not establish that
+                        increased internet access caused
+                        reduced participation in other activities.
+                    </p>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- FOOTER -->
+        <footer class="dashboard-footer">
+
+            <h2>What Can We Learn?</h2>
+
+            <p>
+                Recreation participation varies by activity,
+                demographic group and location. Understanding
+                motivations and barriers can help identify
+                opportunities to encourage wider participation.
+            </p>
+
+            <p class="source-note">
+                Sources: Australian Sports Commission AusPlay;
+                Australian Bureau of Statistics;
+                national park location data;
+                New South Wales park visitation data.
+                Data periods differ between charts.
+            </p>
+
+        </footer>
+
+    </main>
+
+    <script src="js/visualisations.js"></script>
+
 </body>
+
 </html>
