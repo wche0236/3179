@@ -1,0 +1,89 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
+    "width": "container",
+    "height": 340,
+    "autosize": {
+        "type": "fit",
+        "contains": "padding"
+    },
+    "title": {
+        "text": "National Parks Across Australia",
+        "subtitle": "Locations of parks included in the dataset",
+        "anchor": "start",
+        "fontSize": 16,
+        "subtitleFontSize": 11,
+        "offset": 12
+    },
+    "config": {
+        "view": {
+            "stroke": null
+        },
+        "axis": {
+            "labelFontSize": 11,
+            "titleFontSize": 12
+        },
+        "legend": {
+            "labelFontSize": 11,
+            "titleFontSize": 11
+        }
+    },
+    "projection": {
+        "type": "mercator"
+    },
+    "layer": [
+        {
+            "data": {
+                "url": "js/australia_states.json",
+                "format": {
+                    "type": "topojson",
+                    "feature": "STE_2026_AUST_GDA2020"
+                }
+            },
+            "mark": {
+                "type": "geoshape",
+                "fill": "#E9EEE9",
+                "stroke": "#FFFFFF",
+                "strokeWidth": 1
+            }
+        },
+        {
+            "data": {
+                "url": "data/australia_national_parks_clean.csv"
+            },
+            "mark": {
+                "type": "circle",
+                "size": 28,
+                "color": "#4F7D5B",
+                "opacity": 0.65,
+                "stroke": "white",
+                "strokeWidth": 0.3
+            },
+            "encoding": {
+                "longitude": {
+                    "field": "Longitude",
+                    "type": "quantitative"
+                },
+                "latitude": {
+                    "field": "Latitude",
+                    "type": "quantitative"
+                },
+                "tooltip": [
+                    {
+                        "field": "Name",
+                        "title": "National park"
+                    },
+                    {
+                        "field": "State_Territory",
+                        "title": "State or territory"
+                    },
+                    {
+                        "field": "Year_Established",
+                        "type": "quantitative",
+                        "title": "Year established",
+                        "format": "d"
+                    }
+                ]
+            }
+        }
+    ]
+}

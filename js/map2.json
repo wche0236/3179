@@ -1,0 +1,96 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
+    "width": "container",
+    "height": 340,
+    "autosize": {
+        "type": "fit",
+        "contains": "padding"
+    },
+    "title": {
+        "text": "Most Visited Parks in New South Wales",
+        "subtitle": "Domestic visits to the 20 most visited parks, 2024–25",
+        "anchor": "start",
+        "fontSize": 16,
+        "subtitleFontSize": 11,
+        "offset": 12
+    },
+    "config": {
+        "view": {
+            "stroke": null
+        },
+        "axis": {
+            "labelFontSize": 11,
+            "titleFontSize": 12
+        },
+        "legend": {
+            "labelFontSize": 11,
+            "titleFontSize": 11
+        }
+    },
+    "projection": {
+        "type": "mercator"
+    },
+    "layer": [
+        {
+            "data": {
+                "url": "js/nsw_basemap.json",
+                "format": {
+                    "type": "topojson",
+                    "feature": "nsw_basemap"
+                }
+            },
+            "mark": {
+                "type": "geoshape",
+                "fill": "#E9EEE9",
+                "stroke": "white",
+                "strokeWidth": 1
+            }
+        },
+        {
+            "data": {
+                "url": "data/nsw_park_visits.csv"
+            },
+            "mark": {
+                "type": "circle",
+                "opacity": 0.65,
+                "color": "#D88D65",
+                "stroke": "white",
+                "strokeWidth": 0.7
+            },
+            "encoding": {
+                "longitude": {
+                    "field": "Longitude",
+                    "type": "quantitative"
+                },
+                "latitude": {
+                    "field": "Latitude",
+                    "type": "quantitative"
+                },
+                "size": {
+                    "field": "Visits",
+                    "type": "quantitative",
+                    "title": "Domestic visits",
+                    "scale": {
+                        "range": [
+                            30,
+                            950
+                        ]
+                    },
+                    "legend": {
+                        "orient": "bottom"
+                    }
+                },
+                "tooltip": [
+                    {
+                        "field": "Park"
+                    },
+                    {
+                        "field": "Visits",
+                        "type": "quantitative",
+                        "format": ","
+                    }
+                ]
+            }
+        }
+    ]
+}
