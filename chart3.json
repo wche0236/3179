@@ -1,0 +1,135 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
+    "width": "container",
+    "height": 370,
+    "autosize": {
+        "type": "fit",
+        "contains": "padding"
+    },
+    "title": {
+        "text": "Why Australians Get Active Changes With Age",
+        "subtitle": "Selected motivations by age group, percentage of participants",
+        "anchor": "start",
+        "fontSize": 16,
+        "subtitleFontSize": 11,
+        "offset": 12
+    },
+    "config": {
+        "view": {
+            "stroke": null
+        },
+        "axis": {
+            "labelFontSize": 11,
+            "titleFontSize": 12
+        },
+        "legend": {
+            "labelFontSize": 11,
+            "titleFontSize": 11
+        }
+    },
+    "data": {
+        "url": "data/motivation_age.csv"
+    },
+    "encoding": {
+        "x": {
+            "field": "Age",
+            "type": "ordinal",
+            "sort": [
+                "15-17",
+                "18-24",
+                "25-34",
+                "35-44",
+                "45-54",
+                "55-64",
+                "65+"
+            ],
+            "title": "Age group",
+            "axis": {
+                "labelAngle": 0
+            }
+        },
+        "y": {
+            "field": "Motivation",
+            "type": "nominal",
+            "sort": [
+                "Physical health or fitness",
+                "Fun and enjoyment",
+                "Lose or maintain weight",
+                "Be outdoors or enjoy nature",
+                "Social reasons",
+                "Mental health or therapy",
+                "Sense of achievement",
+                "Hobby",
+                "Training purposes",
+                "Learn a new skill"
+            ],
+            "title": null,
+            "axis": {
+                "labelLimit": 210
+            }
+        }
+    },
+    "layer": [
+        {
+            "mark": {
+                "type": "rect",
+                "stroke": "white",
+                "strokeWidth": 1
+            },
+            "encoding": {
+                "color": {
+                    "field": "Percentage",
+                    "type": "quantitative",
+                    "scale": {
+                        "domain": [
+                            0,
+                            75
+                        ],
+                        "scheme": "yellowgreenblue"
+                    },
+                    "legend": {
+                        "orient": "bottom",
+                        "direction": "horizontal",
+                        "gradientLength": 220,
+                        "title": "Participants (%)"
+                    }
+                },
+                "tooltip": [
+                    {
+                        "field": "Age",
+                        "title": "Age group"
+                    },
+                    {
+                        "field": "Motivation"
+                    },
+                    {
+                        "field": "Percentage",
+                        "type": "quantitative",
+                        "format": ".1f",
+                        "title": "Participants (%)"
+                    }
+                ]
+            }
+        },
+        {
+            "mark": {
+                "type": "text",
+                "fontSize": 10
+            },
+            "encoding": {
+                "text": {
+                    "field": "Percentage",
+                    "type": "quantitative",
+                    "format": ".0f"
+                },
+                "color": {
+                    "condition": {
+                        "test": "datum.Percentage >= 45",
+                        "value": "white"
+                    },
+                    "value": "#26372D"
+                }
+            }
+        }
+    ]
+}

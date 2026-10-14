@@ -1,0 +1,151 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
+    "width": "container",
+    "height": 330,
+    "autosize": {
+        "type": "fit",
+        "contains": "padding"
+    },
+    "title": {
+        "text": "Childhood Recreation Habits Shifted",
+        "subtitle": "Australian children aged 5 to 14, 2006 and 2012",
+        "anchor": "start",
+        "fontSize": 16,
+        "subtitleFontSize": 11,
+        "offset": 12
+    },
+    "config": {
+        "view": {
+            "stroke": null
+        },
+        "axis": {
+            "labelFontSize": 11,
+            "titleFontSize": 12
+        },
+        "legend": {
+            "labelFontSize": 11,
+            "titleFontSize": 11
+        }
+    },
+    "data": {
+        "url": "data/children_recreation_trends.csv",
+        "format": {
+            "type": "csv",
+            "parse": {
+                "Year": "number",
+                "Participation Rate": "number"
+            }
+        }
+    },
+    "transform": [
+        {
+            "calculate": "datum['Participation Rate']",
+            "as": "Rate"
+        },
+        {
+            "calculate": "datum.Year == 2006 ? '2006' : '2012'",
+            "as": "Year Label"
+        }
+    ],
+    "encoding": {
+        "x": {
+            "field": "Year Label",
+            "type": "ordinal",
+            "sort": [
+                "2006",
+                "2012"
+            ],
+            "axis": {
+                "title": null,
+                "labelAngle": 0
+            }
+        },
+        "y": {
+            "field": "Rate",
+            "type": "quantitative",
+            "scale": {
+                "domain": [
+                    50,
+                    100
+                ]
+            },
+            "axis": {
+                "title": "Participation rate (%)"
+            }
+        },
+        "color": {
+            "field": "Activity",
+            "type": "nominal",
+            "scale": {
+                "domain": [
+                    "Bike riding",
+                    "Watching television or videos",
+                    "Reading for pleasure",
+                    "Internet access"
+                ],
+                "range": [
+                    "#4F7D5B",
+                    "#8D99AE",
+                    "#D99A4E",
+                    "#8B5E83"
+                ]
+            },
+            "legend": {
+                "title": null,
+                "orient": "bottom",
+                "columns": 2
+            }
+        }
+    },
+    "layer": [
+        {
+            "mark": {
+                "type": "line",
+                "strokeWidth": 2.5
+            },
+            "encoding": {
+                "tooltip": [
+                    {
+                        "field": "Activity"
+                    },
+                    {
+                        "field": "Year",
+                        "type": "ordinal"
+                    },
+                    {
+                        "field": "Rate",
+                        "type": "quantitative",
+                        "format": ".1f"
+                    }
+                ]
+            }
+        },
+        {
+            "mark": {
+                "type": "point",
+                "filled": true,
+                "size": 85
+            }
+        },
+        {
+            "transform": [
+                {
+                    "filter": "datum.Year == 2012"
+                }
+            ],
+            "mark": {
+                "type": "text",
+                "align": "left",
+                "dx": 9,
+                "fontSize": 10
+            },
+            "encoding": {
+                "text": {
+                    "field": "Rate",
+                    "type": "quantitative",
+                    "format": ".1f"
+                }
+            }
+        }
+    ]
+}

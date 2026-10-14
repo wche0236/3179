@@ -1,0 +1,91 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
+    "width": "container",
+    "height": 400,
+    "autosize": {
+        "type": "fit",
+        "contains": "padding"
+    },
+    "title": {
+        "text": "Most Popular Outdoor Activities",
+        "subtitle": "Estimated participants in selected activities, 2025",
+        "anchor": "start",
+        "fontSize": 16,
+        "subtitleFontSize": 11,
+        "offset": 12
+    },
+    "data": {
+        "url": "data/activity_participation.csv"
+    },
+    "encoding": {
+        "y": {
+            "field": "Activity",
+            "type": "nominal",
+            "sort": {
+                "field": "Participants",
+                "order": "descending"
+            },
+            "title": null,
+            "axis": {
+                "labelFontSize": 11,
+                "labelLimit": 135
+            }
+        },
+        "x": {
+            "field": "Participants",
+            "type": "quantitative",
+            "title": "Estimated participants",
+            "axis": {
+                "format": "~s"
+            },
+            "scale": {
+                "zero": true
+            }
+        }
+    },
+    "layer": [
+        {
+            "mark": {
+                "type": "bar",
+                "height": 2,
+                "color": "#8BAA91"
+            }
+        },
+        {
+            "mark": {
+                "type": "point",
+                "filled": true,
+                "size": 100,
+                "color": "#34694B"
+            },
+            "encoding": {
+                "tooltip": [
+                    {
+                        "field": "Activity",
+                        "type": "nominal",
+                        "title": "Activity"
+                    },
+                    {
+                        "field": "Participants",
+                        "type": "quantitative",
+                        "title": "Estimated participants",
+                        "format": ","
+                    }
+                ]
+            }
+        }
+    ],
+    "config": {
+        "view": {
+            "stroke": null
+        },
+        "axis": {
+            "labelFontSize": 11,
+            "titleFontSize": 12
+        },
+        "legend": {
+            "labelFontSize": 11,
+            "titleFontSize": 11
+        }
+    }
+}

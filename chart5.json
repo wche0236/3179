@@ -1,0 +1,186 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
+    "width": "container",
+    "height": 355,
+    "autosize": {
+        "type": "fit",
+        "contains": "padding"
+    },
+    "title": {
+        "text": "Gender Differences in Participation Barriers",
+        "subtitle": "Selected reasons reported by adult non-participants",
+        "anchor": "start",
+        "fontSize": 16,
+        "subtitleFontSize": 11,
+        "offset": 12
+    },
+    "config": {
+        "view": {
+            "stroke": null
+        },
+        "axis": {
+            "labelFontSize": 11,
+            "titleFontSize": 12
+        },
+        "legend": {
+            "labelFontSize": 11,
+            "titleFontSize": 11
+        }
+    },
+    "data": {
+        "url": "data/barriers_gender.csv",
+        "format": {
+            "type": "csv",
+            "parse": {
+                "Males": "number",
+                "Females": "number"
+            }
+        }
+    },
+    "transform": [
+        {
+            "fold": [
+                "Males",
+                "Females"
+            ],
+            "as": [
+                "Gender",
+                "Rate"
+            ]
+        },
+        {
+            "calculate": "datum.Gender == 'Males' ? -datum.Rate : datum.Rate",
+            "as": "Signed Rate"
+        }
+    ],
+    "encoding": {
+        "y": {
+            "field": "Barrier",
+            "type": "nominal",
+            "sort": [
+                "Poor health or injury",
+                "Increasing age",
+                "Disability",
+                "Dislike physical activity",
+                "Cannot afford it",
+                "Not a priority",
+                "Physical job",
+                "Too competitive"
+            ],
+            "axis": {
+                "title": null,
+                "labelLimit": 175,
+                "labelFontSize": 10
+            }
+        },
+        "x": {
+            "field": "Signed Rate",
+            "type": "quantitative",
+            "scale": {
+                "domain": [
+                    -35,
+                    35
+                ]
+            },
+            "axis": {
+                "title": "Non-participants (%)",
+                "labelExpr": "abs(datum.value) + '%'",
+                "values": [
+                    -30,
+                    -20,
+                    -10,
+                    0,
+                    10,
+                    20,
+                    30
+                ]
+            }
+        },
+        "color": {
+            "field": "Gender",
+            "type": "nominal",
+            "scale": {
+                "domain": [
+                    "Males",
+                    "Females"
+                ],
+                "range": [
+                    "#537D96",
+                    "#D88D65"
+                ]
+            },
+            "legend": {
+                "title": "Gender",
+                "orient": "right"
+            }
+        },
+        "tooltip": [
+            {
+                "field": "Barrier"
+            },
+            {
+                "field": "Gender"
+            },
+            {
+                "field": "Rate",
+                "type": "quantitative",
+                "title": "Non-participants (%)",
+                "format": ".1f"
+            }
+        ]
+    },
+    "layer": [
+        {
+            "mark": {
+                "type": "bar",
+                "size": 21
+            }
+        },
+        {
+            "transform": [
+                {
+                    "filter": "datum.Gender == 'Males'"
+                }
+            ],
+            "mark": {
+                "type": "text",
+                "align": "right",
+                "dx": -5,
+                "fontSize": 10
+            },
+            "encoding": {
+                "text": {
+                    "field": "Rate",
+                    "type": "quantitative",
+                    "format": ".1f"
+                },
+                "color": {
+                    "value": "#26372D"
+                }
+            }
+        },
+        {
+            "transform": [
+                {
+                    "filter": "datum.Gender == 'Females'"
+                }
+            ],
+            "mark": {
+                "type": "text",
+                "align": "left",
+                "dx": 5,
+                "fontSize": 10
+            },
+            "encoding": {
+                "text": {
+                    "field": "Rate",
+                    "type": "quantitative",
+                    "format": ".1f"
+                },
+                "color": {
+                    "value": "#26372D"
+                }
+            }
+        }
+    ]
+}

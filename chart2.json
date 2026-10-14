@@ -1,0 +1,170 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
+    "width": "container",
+    "height": 400,
+    "autosize": {
+        "type": "fit",
+        "contains": "padding"
+    },
+    "title": {
+        "text": "Gender Composition Across Recreation Activities",
+        "subtitle": "Percentage of male and female participants within each selected activity, 2025",
+        "anchor": "start",
+        "fontSize": 16,
+        "subtitleFontSize": 11,
+        "offset": 12
+    },
+    "data": {
+        "url": "data/gender_participation.csv"
+    },
+    "encoding": {
+        "y": {
+            "field": "Activity",
+            "type": "nominal",
+            "title": null,
+            "sort": [
+                "Walking (Recreational)",
+                "Bush walking",
+                "Running/jogging",
+                "Swimming",
+                "Cycling",
+                "Golf",
+                "Surfing",
+                "Fishing (recreational)",
+                "Canoeing/Kayaking",
+                "Mountain climbing"
+            ],
+            "axis": {
+                "labelFontSize": 11,
+                "labelLimit": 135
+            }
+        }
+    },
+    "layer": [
+        {
+            "mark": {
+                "type": "rule",
+                "strokeWidth": 2,
+                "color": "#777777"
+            },
+            "encoding": {
+                "x": {
+                    "field": "Male",
+                    "type": "quantitative",
+                    "title": "Gender composition (%)",
+                    "scale": {
+                        "domain": [
+                            0,
+                            100
+                        ]
+                    }
+                },
+                "x2": {
+                    "field": "Female"
+                }
+            }
+        },
+        {
+            "mark": {
+                "type": "point",
+                "filled": true,
+                "size": 100
+            },
+            "encoding": {
+                "x": {
+                    "field": "Male",
+                    "type": "quantitative"
+                },
+                "color": {
+                    "datum": "Male",
+                    "type": "nominal",
+                    "scale": {
+                        "domain": [
+                            "Male",
+                            "Female"
+                        ],
+                        "range": [
+                            "#537D96",
+                            "#D88D65"
+                        ]
+                    },
+                    "legend": {
+                        "title": "Gender",
+                        "orient": "right",
+                        "direction": "vertical",
+                        "labelFontSize": 11,
+                        "titleFontSize": 12,
+                        "symbolSize": 100,
+                        "offset": 10
+                    }
+                },
+                "tooltip": [
+                    {
+                        "field": "Activity",
+                        "type": "nominal",
+                        "title": "Activity"
+                    },
+                    {
+                        "field": "Male",
+                        "type": "quantitative",
+                        "title": "Male (%)",
+                        "format": ".1f"
+                    }
+                ]
+            }
+        },
+        {
+            "mark": {
+                "type": "point",
+                "filled": true,
+                "size": 100
+            },
+            "encoding": {
+                "x": {
+                    "field": "Female",
+                    "type": "quantitative"
+                },
+                "color": {
+                    "datum": "Female",
+                    "type": "nominal",
+                    "scale": {
+                        "domain": [
+                            "Male",
+                            "Female"
+                        ],
+                        "range": [
+                            "#537D96",
+                            "#D88D65"
+                        ]
+                    }
+                },
+                "tooltip": [
+                    {
+                        "field": "Activity",
+                        "type": "nominal",
+                        "title": "Activity"
+                    },
+                    {
+                        "field": "Female",
+                        "type": "quantitative",
+                        "title": "Female (%)",
+                        "format": ".1f"
+                    }
+                ]
+            }
+        }
+    ],
+    "config": {
+        "view": {
+            "stroke": null
+        },
+        "axis": {
+            "labelFontSize": 11,
+            "titleFontSize": 12
+        },
+        "legend": {
+            "labelFontSize": 11,
+            "titleFontSize": 11
+        }
+    }
+}
