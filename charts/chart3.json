@@ -1,7 +1,7 @@
 {
     "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
     "width": "container",
-    "height": 370,
+    "height": 500,
     "autosize": {
         "type": "fit",
         "contains": "padding"
@@ -10,42 +10,64 @@
         "text": "Why Australians Get Active Changes With Age",
         "subtitle": "Selected motivations by age group, percentage of participants",
         "anchor": "start",
-        "fontSize": 16,
-        "subtitleFontSize": 11,
-        "offset": 12
-    },
-    "config": {
-        "view": {
-            "stroke": null
-        },
-        "axis": {
-            "labelFontSize": 11,
-            "titleFontSize": 12
-        },
-        "legend": {
-            "labelFontSize": 11,
-            "titleFontSize": 11
-        }
+        "fontSize": 24,
+        "subtitleFontSize": 14,
+        "offset": 14
     },
     "data": {
-        "url": "data/motivation_age.csv"
+        "url": "data/motivation_age.csv",
+        "format": {
+            "type": "csv",
+            "parse": {
+                "Age": "string",
+                "Motivation": "string",
+                "Percentage": "number"
+            }
+        }
+    },
+    "transform": [
+        {
+            "calculate": "trim(toString(datum.Age))",
+            "as": "Clean Age"
+        },
+        {
+            "calculate": "toNumber(replace(datum['Clean Age'], /[^0-9].*$/, ''))",
+            "as": "Starting Age"
+        },
+        {
+            "calculate": "datum['Starting Age'] == 15 ? 1 : datum['Starting Age'] == 18 ? 2 : datum['Starting Age'] == 25 ? 3 : datum['Starting Age'] == 35 ? 4 : datum['Starting Age'] == 45 ? 5 : datum['Starting Age'] == 55 ? 6 : datum['Starting Age'] == 65 ? 7 : null",
+            "as": "Age Position"
+        },
+        {
+            "filter": "isValid(datum['Age Position'])"
+        }
+    ],
+    "mark": {
+        "type": "rect",
+        "stroke": "#FFFFFF",
+        "strokeWidth": 1
     },
     "encoding": {
         "x": {
-            "field": "Age",
+            "field": "Age Position",
             "type": "ordinal",
-            "sort": [
-                "15-17",
-                "18-24",
-                "25-34",
-                "35-44",
-                "45-54",
-                "55-64",
-                "65+"
-            ],
-            "title": "Age group",
+            "scale": {
+                "domain": [
+                    1,
+                    2,
+                    3,
+                    4,
+                    5,
+                    6,
+                    7
+                ],
+                "reverse": false
+            },
             "axis": {
-                "labelAngle": 0
+                "title": "Age group",
+                "labelAngle": 0,
+                "labelExpr": "datum.value == 1 ? '15-17' : datum.value == 2 ? '18-24' : datum.value == 3 ? '25-34' : datum.value == 4 ? '35-44' : datum.value == 5 ? '45-54' : datum.value == 6 ? '55-64' : '65+'",
+                "labelFontSize": 14
             }
         },
         "y": {
@@ -67,69 +89,52 @@
             "axis": {
                 "labelLimit": 210
             }
-        }
-    },
-    "layer": [
-        {
-            "mark": {
-                "type": "rect",
-                "stroke": "white",
-                "strokeWidth": 1
+        },
+        "color": {
+            "field": "Percentage",
+            "type": "quantitative",
+            "scale": {
+                "domain": [
+                    0,
+                    75
+                ],
+                "scheme": "yellowgreenblue"
             },
-            "encoding": {
-                "color": {
-                    "field": "Percentage",
-                    "type": "quantitative",
-                    "scale": {
-                        "domain": [
-                            0,
-                            75
-                        ],
-                        "scheme": "yellowgreenblue"
-                    },
-                    "legend": {
-                        "orient": "bottom",
-                        "direction": "horizontal",
-                        "gradientLength": 220,
-                        "title": "Participants (%)"
-                    }
-                },
-                "tooltip": [
-                    {
-                        "field": "Age",
-                        "title": "Age group"
-                    },
-                    {
-                        "field": "Motivation"
-                    },
-                    {
-                        "field": "Percentage",
-                        "type": "quantitative",
-                        "format": ".1f",
-                        "title": "Participants (%)"
-                    }
-                ]
+            "legend": {
+                "orient": "bottom",
+                "direction": "horizontal",
+                "gradientLength": 220,
+                "title": "Participants (%)"
             }
         },
-        {
-            "mark": {
-                "type": "text",
-                "fontSize": 10
+        "tooltip": [
+            {
+                "field": "Age",
+                "title": "Age group"
             },
-            "encoding": {
-                "text": {
-                    "field": "Percentage",
-                    "type": "quantitative",
-                    "format": ".0f"
-                },
-                "color": {
-                    "condition": {
-                        "test": "datum.Percentage >= 45",
-                        "value": "white"
-                    },
-                    "value": "#26372D"
-                }
+            {
+                "field": "Motivation",
+                "title": "Motivation"
+            },
+            {
+                "field": "Percentage",
+                "type": "quantitative",
+                "format": ".1f",
+                "title": "Participants (%)"
             }
+        ]
+    },
+    "config": {
+        "view": {
+            "stroke": null
+        },
+        "axis": {
+            "labelFontSize": 14,
+            "titleFontSize": 15
+        },
+        "legend": {
+            "labelFontSize": 14,
+            "titleFontSize": 14
         }
-    ]
+    }
 }

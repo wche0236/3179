@@ -1,7 +1,7 @@
 {
     "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
     "width": "container",
-    "height": 355,
+    "height": 500,
     "autosize": {
         "type": "fit",
         "contains": "padding"
@@ -10,21 +10,21 @@
         "text": "Gender Differences in Participation Barriers",
         "subtitle": "Selected reasons reported by adult non-participants",
         "anchor": "start",
-        "fontSize": 16,
-        "subtitleFontSize": 11,
-        "offset": 12
+        "fontSize": 24,
+        "subtitleFontSize": 14,
+        "offset": 14
     },
     "config": {
         "view": {
             "stroke": null
         },
         "axis": {
-            "labelFontSize": 11,
-            "titleFontSize": 12
+            "labelFontSize": 14,
+            "titleFontSize": 15
         },
         "legend": {
-            "labelFontSize": 11,
-            "titleFontSize": 11
+            "labelFontSize": 14,
+            "titleFontSize": 14
         }
     },
     "data": {
