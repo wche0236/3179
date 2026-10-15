@@ -1,31 +1,18 @@
 {
     "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
     "width": "container",
-    "height": 340,
+    "height": 500,
     "autosize": {
         "type": "fit",
         "contains": "padding"
     },
     "title": {
         "text": "Most Visited Parks in New South Wales",
-        "subtitle": "Domestic visits to the 20 most visited parks, 2024–25",
+        "subtitle": "Domestic visits to the 10 most visited parks, 2024–25",
         "anchor": "start",
-        "fontSize": 16,
-        "subtitleFontSize": 11,
-        "offset": 12
-    },
-    "config": {
-        "view": {
-            "stroke": null
-        },
-        "axis": {
-            "labelFontSize": 11,
-            "titleFontSize": 12
-        },
-        "legend": {
-            "labelFontSize": 11,
-            "titleFontSize": 11
-        }
+        "fontSize": 24,
+        "subtitleFontSize": 14,
+        "offset": 14
     },
     "projection": {
         "type": "mercator"
@@ -42,8 +29,91 @@
             "mark": {
                 "type": "geoshape",
                 "fill": "#E9EEE9",
-                "stroke": "white",
+                "stroke": "black",
                 "strokeWidth": 1
+            }
+        },
+        {
+            "data": {
+                "values": [
+                    {
+                        "Label": "NEW SOUTH WALES",
+                        "Longitude": 146.5,
+                        "Latitude": -29.5
+                    }
+                ]
+            },
+            "mark": {
+                "type": "text",
+                "fontSize": 17,
+                "fontWeight": "bold",
+                "color": "#53685A",
+                "opacity": 0.85,
+                "align": "center",
+                "baseline": "middle"
+            },
+            "encoding": {
+                "longitude": {
+                    "field": "Longitude",
+                    "type": "quantitative"
+                },
+                "latitude": {
+                    "field": "Latitude",
+                    "type": "quantitative"
+                },
+                "text": {
+                    "field": "Label",
+                    "type": "nominal"
+                }
+            }
+        },
+        {
+            "data": {
+                "values": [
+                    {
+                        "Park": "Blue Mountains National Park",
+                        "Longitude": 150.4178,
+                        "Latitude": -33.6150,
+                        "LabelLongitude": 147.8,
+                        "LabelLatitude": -33.7
+                    },
+                    {
+                        "Park": "Royal National Park",
+                        "Longitude": 151.0500,
+                        "Latitude": -34.1333,
+                        "LabelLongitude": 148.0,
+                        "LabelLatitude": -35.1
+                    },
+                    {
+                        "Park": "Ku-ring-gai Chase National Park",
+                        "Longitude": 151.2227,
+                        "Latitude": -33.6207,
+                        "LabelLongitude": 148.1,
+                        "LabelLatitude": -31.3
+                    }
+                ]
+            },
+            "mark": {
+                "type": "rule",
+                "color": "#653D29",
+                "strokeWidth": 1.5,
+                "opacity": 0.9
+            },
+            "encoding": {
+                "longitude": {
+                    "field": "Longitude",
+                    "type": "quantitative"
+                },
+                "latitude": {
+                    "field": "Latitude",
+                    "type": "quantitative"
+                },
+                "longitude2": {
+                    "field": "LabelLongitude"
+                },
+                "latitude2": {
+                    "field": "LabelLatitude"
+                }
             }
         },
         {
@@ -54,8 +124,8 @@
                 "type": "circle",
                 "opacity": 0.65,
                 "color": "#D88D65",
-                "stroke": "white",
-                "strokeWidth": 0.7
+                "stroke": "#FFFFFF",
+                "strokeWidth": 0.8
             },
             "encoding": {
                 "longitude": {
@@ -77,20 +147,81 @@
                         ]
                     },
                     "legend": {
-                        "orient": "bottom"
+                        "orient": "bottom",
+                        "titleFontSize": 14,
+                        "labelFontSize": 14
                     }
                 },
                 "tooltip": [
                     {
-                        "field": "Park"
+                        "field": "Park",
+                        "title": "Park"
                     },
                     {
                         "field": "Visits",
                         "type": "quantitative",
+                        "title": "Domestic visits",
                         "format": ","
                     }
                 ]
             }
+        },
+        {
+            "data": {
+                "values": [
+                    {
+                        "Park": "Blue Mountains National Park",
+                        "LabelLongitude": 147.8,
+                        "LabelLatitude": -33.7
+                    },
+                    {
+                        "Park": "Royal National Park",
+                        "LabelLongitude": 148.0,
+                        "LabelLatitude": -35.1
+                    },
+                    {
+                        "Park": "Ku-ring-gai Chase National Park",
+                        "LabelLongitude": 148.1,
+                        "LabelLatitude": -31.3
+                    }
+                ]
+            },
+            "mark": {
+                "type": "text",
+                "align": "right",
+                "baseline": "middle",
+                "dx": -5,
+                "fontSize": 12,
+                "fontWeight": "bold",
+                "color": "#653D29"
+            },
+            "encoding": {
+                "longitude": {
+                    "field": "LabelLongitude",
+                    "type": "quantitative"
+                },
+                "latitude": {
+                    "field": "LabelLatitude",
+                    "type": "quantitative"
+                },
+                "text": {
+                    "field": "Park",
+                    "type": "nominal"
+                }
+            }
         }
-    ]
+    ],
+    "config": {
+        "view": {
+            "stroke": null
+        },
+        "axis": {
+            "labelFontSize": 14,
+            "titleFontSize": 15
+        },
+        "legend": {
+            "labelFontSize": 14,
+            "titleFontSize": 14
+        }
+    }
 }
