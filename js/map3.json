@@ -2,7 +2,7 @@
     "$schema": "https://vega.github.io/schema/vega/v6.json",
     "description": "National Parks Across Australia with state selection, zooming and panning.",
     "width": 850,
-    "height": 400,
+    "height": 500,
     "padding": {
         "top": 10,
         "left": 10,
