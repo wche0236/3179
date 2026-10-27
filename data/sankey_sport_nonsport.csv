@@ -1,0 +1,64 @@
+Gender,Age,Category,Participants
+All,15-17,Sport only,228199
+All,15-17,Sport and non-sport,525192
+All,15-17,Non-sport only,128942
+All,18-24,Sport only,507636
+All,18-24,Sport and non-sport,1199094
+All,18-24,Non-sport only,492705
+All,25-34,Sport only,723293
+All,25-34,Sport and non-sport,1911398
+All,25-34,Non-sport only,1004861
+All,35-44,Sport only,591803
+All,35-44,Sport and non-sport,1602802
+All,35-44,Non-sport only,1249287
+All,45-54,Sport only,371218
+All,45-54,Sport and non-sport,1268329
+All,45-54,Non-sport only,1343607
+All,55-64,Sport only,222609
+All,55-64,Sport and non-sport,1092276
+All,55-64,Non-sport only,1388232
+All,65+,Sport only,281027
+All,65+,Sport and non-sport,999662
+All,65+,Non-sport only,2311145
+Male,15-17,Sport only,154731
+Male,15-17,Sport and non-sport,239317
+Male,15-17,Non-sport only,45148
+Male,18-24,Sport only,366338
+Male,18-24,Sport and non-sport,576093
+Male,18-24,Non-sport only,176809
+Male,25-34,Sport only,537754
+Male,25-34,Sport and non-sport,927638
+Male,25-34,Non-sport only,350887
+Male,35-44,Sport only,423544
+Male,35-44,Sport and non-sport,822911
+Male,35-44,Non-sport only,463126
+Male,45-54,Sport only,267771
+Male,45-54,Sport and non-sport,688144
+Male,45-54,Non-sport only,527488
+Male,55-64,Sport only,154373
+Male,55-64,Sport and non-sport,607527
+Male,55-64,Non-sport only,564291
+Male,65+,Sport only,178941
+Male,65+,Sport and non-sport,569125
+Male,65+,Non-sport only,973671
+Female,15-17,Sport only,71966
+Female,15-17,Sport and non-sport,280570
+Female,15-17,Non-sport only,82127
+Female,18-24,Sport only,138795
+Female,18-24,Sport and non-sport,611080
+Female,18-24,Non-sport only,306303
+Female,25-34,Sport only,182426
+Female,25-34,Sport and non-sport,971329
+Female,25-34,Non-sport only,647784
+Female,35-44,Sport only,166980
+Female,35-44,Sport and non-sport,773662
+Female,35-44,Non-sport only,781291
+Female,45-54,Sport only,103110
+Female,45-54,Sport and non-sport,578807
+Female,45-54,Non-sport only,810541
+Female,55-64,Sport only,67883
+Female,55-64,Sport and non-sport,482475
+Female,55-64,Non-sport only,822810
+Female,65+,Sport only,101654
+Female,65+,Sport and non-sport,430154
+Female,65+,Non-sport only,1334615

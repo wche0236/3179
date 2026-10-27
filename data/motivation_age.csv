@@ -1,32 +1,32 @@
 Age,Motivation,Percentage
-15–17,Physical health or fitness,61.5
-18–24,Physical health or fitness,62.1
-25–34,Physical health or fitness,62.5
-35–44,Physical health or fitness,63.1
-45–54,Physical health or fitness,67.0
-55–64,Physical health or fitness,70.6
-65+,Physical health or fitness,74.4
-15–17,Fun and enjoyment,71.7
-18–24,Fun and enjoyment,64.7
-25–34,Fun and enjoyment,61.6
-35–44,Fun and enjoyment,60.2
-45–54,Fun and enjoyment,57.2
-55–64,Fun and enjoyment,58.2
-65+,Fun and enjoyment,50.0
-15–17,Lose or maintain weight,39.3
-18–24,Lose or maintain weight,50.5
-25–34,Lose or maintain weight,54.7
-35–44,Lose or maintain weight,55.3
-45–54,Lose or maintain weight,58.4
-55–64,Lose or maintain weight,59.8
-65+,Lose or maintain weight,45.5
-15–17,Be outdoors or enjoy nature,47.0
-18–24,Be outdoors or enjoy nature,46.7
-25–34,Be outdoors or enjoy nature,49.1
-35–44,Be outdoors or enjoy nature,49.6
-45–54,Be outdoors or enjoy nature,51.6
-55–64,Be outdoors or enjoy nature,57.5
-65+,Be outdoors or enjoy nature,53.0
+15–17,Physical health,61.5
+18–24,Physical health,62.1
+25–34,Physical health,62.5
+35–44,Physical health,63.1
+45–54,Physical health,67.0
+55–64,Physical health,70.6
+65+,Physical health,74.4
+15–17,Enjoyment,71.7
+18–24,Enjoyment,64.7
+25–34,Enjoyment,61.6
+35–44,Enjoyment,60.2
+45–54,Enjoyment,57.2
+55–64,Enjoyment,58.2
+65+,Enjoyment,50.0
+15–17,Maintain weight,39.3
+18–24,Maintain weight,50.5
+25–34,Maintain weight,54.7
+35–44,Maintain weight,55.3
+45–54,Maintain weight,58.4
+55–64,Maintain weight,59.8
+65+,Maintain weight,45.5
+15–17,Enjoy nature,47.0
+18–24,Enjoy nature,46.7
+25–34,Enjoy nature,49.1
+35–44,Enjoy nature,49.6
+45–54,Enjoy nature,51.6
+55–64,Enjoy nature,57.5
+65+,Enjoy nature,53.0
 15–17,Social reasons,56.6
 18–24,Social reasons,54.6
 25–34,Social reasons,49.2
@@ -34,20 +34,20 @@ Age,Motivation,Percentage
 45–54,Social reasons,38.6
 55–64,Social reasons,39.5
 65+,Social reasons,40.0
-15–17,Mental health or therapy,27.1
-18–24,Mental health or therapy,36.5
-25–34,Mental health or therapy,42.4
-35–44,Mental health or therapy,40.7
-45–54,Mental health or therapy,40.8
-55–64,Mental health or therapy,38.7
-65+,Mental health or therapy,29.7
-15–17,Sense of achievement,37.5
-18–24,Sense of achievement,37.3
-25–34,Sense of achievement,33.4
-35–44,Sense of achievement,28.9
-45–54,Sense of achievement,27.3
-55–64,Sense of achievement,29.5
-65+,Sense of achievement,28.4
+15–17,Mental health,27.1
+18–24,Mental health,36.5
+25–34,Mental health,42.4
+35–44,Mental health,40.7
+45–54,Mental health,40.8
+55–64,Mental health,38.7
+65+,Mental health,29.7
+15–17,Achievement,37.5
+18–24,Achievement,37.3
+25–34,Achievement,33.4
+35–44,Achievement,28.9
+45–54,Achievement,27.3
+55–64,Achievement,29.5
+65+,Achievement,28.4
 15–17,Hobby,53.5
 18–24,Hobby,47.4
 25–34,Hobby,41.1
@@ -62,10 +62,10 @@ Age,Motivation,Percentage
 45–54,Training purposes,18.8
 55–64,Training purposes,15.0
 65+,Training purposes,8.0
-15–17,Learn a new skill,32.6
-18–24,Learn a new skill,26.2
-25–34,Learn a new skill,22.2
-35–44,Learn a new skill,14.2
-45–54,Learn a new skill,9.2
-55–64,Learn a new skill,7.5
-65+,Learn a new skill,6.0
+15–17,Learn new skill,32.6
+18–24,Learn new skill,26.2
+25–34,Learn new skill,22.2
+35–44,Learn new skill,14.2
+45–54,Learn new skill,9.2
+55–64,Learn new skill,7.5
+65+,Learn new skill,6.0
