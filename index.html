@@ -4,8 +4,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#183d2b">
+    <meta name="description" content="Explore Australian recreation, participation, parks, motivations and barriers.">
+    <title>Outdoor Recreation in Australia | Insights Dashboard</title>
 
-    <title>Outdoor Recreation in Australia</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700;900&family=Source+Sans+3:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
 
     <script src="https://cdn.jsdelivr.net/npm/vega@6"></script>
     <script src="https://cdn.jsdelivr.net/npm/vega-lite@6"></script>
@@ -15,291 +22,402 @@
 </head>
 
 <body>
-
     <main class="dashboard">
 
         <!-- HEADER -->
         <header class="dashboard-header">
-
-            <p class="eyebrow">
-                AUSTRALIAN RECREATION INSIGHTS
-            </p>
-
+            <p class="eyebrow">Australian Recreation Insights</p>
             <h1>Outdoor Recreation in Australia</h1>
 
             <p class="dashboard-intro">
-                Explore how Australians engage with outdoor recreation,
-                from popular activities and participation differences
-                to motivations, barriers and national parks.
+                Recreation shapes everyday life across Australia.
+                This dashboard explores participation, changing habits,
+                public spaces, national parks and barriers.
             </p>
 
+            <nav class="section-nav" aria-label="Dashboard sections">
+                <a href="#participation">Participation</a>
+                <a href="#trends">Changing habits</a>
+                <a href="#places">Recreation places</a>
+                <a href="#barriers">Motivations and barriers</a>
+            </nav>
         </header>
 
-
         <!-- SECTION 1 -->
-        <section class="story-section">
-
+        <section class="story-section" id="participation">
             <div class="section-heading">
                 <span class="section-number">01</span>
-
                 <div>
-                    <h2>How Do Australians Participate?</h2>
-
+                    <p class="section-kicker">Participation and people</p>
+                    <h2>Who Participates, and How?</h2>
                     <p>
-                        Discover popular activities and differences
-                        between male and female participants.
+                        Start with the scale of participation, then compare how involvement differs
+                        across activities and life stages.
                     </p>
                 </div>
             </div>
 
-            <div class="chart-grid two-columns">
-
-                <div class="chart-card">
+            <!-- Chart 1 -->
+            <div class="chart-grid">
+                <article class="chart-card feature">
                     <div id="vis1" class="vis-container"></div>
-
-                    <p class="chart-description">
-                        Recreational walking attracts far more participants than specialised activities,
-                        suggesting that accessible, everyday forms of recreation have broader appeal
-                        than activities requiring particular skills or equipment.
-                    </p>
-                </div>
-
-                <div class="chart-card">
-                    <div id="vis2" class="vis-container"></div>
-
-                    <p class="chart-description">
-                        Gender differences are relatively small in activities such as kayaking, but much
-                        larger in golf and fishing, suggesting that participation
-                        gaps depend strongly on the activity.
-                    </p>
-                </div>
-
+                    <aside class="insight">
+                        <p class="insight-label">Key finding</p>
+                        <h3 class="insight-headline">
+                            Walking reaches 11.3 million adults.
+                        </h3>
+                        <p class="insight-text">
+                            Walking is the most widely participated-in activity in this comparison,
+                            reaching approximately <strong>11.3 million</strong> adults.
+                            Bush walking follows, reaching <strong>4.0 million</strong>.
+                            The gap shows how strongly participation is concentrated in an accessible,
+                            everyday activity compared with more specialised pursuits.
+                        </p>
+                    </aside>
+                </article>
             </div>
 
-        </section>
+            <!-- Chart 2 -->
+            <div class="chart-grid">
+                <article class="chart-card feature">
+                    <div id="vis2" class="vis-container"></div>
+                    <aside class="insight">
+                        <p class="insight-label">Key finding</p>
+                        <h3 class="insight-headline">
+                            Golf has the largest male share.
+                        </h3>
+                        <p class="insight-text">
+                            Men represent <strong>81%</strong> of golf participants and
+                            <strong>78%</strong> of fishing participants. Women represent
+                            <strong>58%</strong> of walking participants. These differences show that participation is
+                            not uniform across activities.
+                            They describe who takes part, rather than explaining why these patterns occur.
+                        </p>
+                    </aside>
+                </article>
+            </div>
 
+            <!-- Chart 3: Sankey Diagram -->
+            <div class="chart-grid">
+                <article class="chart-card feature">
+                    <div id="vis6" class="vis-container"></div>
+                    <aside class="insight">
+                        <p class="insight-label">Key finding</p>
+                        <h3 class="insight-headline">
+                            Older adults increasingly favour non-sport activities.
+                        </h3>
+                        <p class="insight-text">
+                            Among active teenagers, <strong>60%</strong> participate in both.
+                            Another <strong>26%</strong> participate in sport only.<br><br>
+                            Among active adults aged sixty-five and above,
+                            <strong>64%</strong> participate in non-sport activities only.
+                            Just <strong>8%</strong> participate in sport only.<br><br>
+                            Activity preferences change across different life stages.
+                            Accessible options remain important for older communities.
+                        </p>
+                    </aside>
+                </article>
+            </div>
+
+            <!-- Chart 4: Map -->
+            <div class="chart-grid">
+                <article class="chart-card feature flip">
+                    <div id="map1" class="vis-container"></div>
+                    <aside class="insight">
+                        <p class="insight-label">Key finding</p>
+                        <h3 class="insight-headline">
+                            Weekly participation varies between Australian states.
+                        </h3>
+                        <p class="insight-text">
+                            Participation rates range from <strong>67%</strong> to <strong>78%</strong>.
+                            The Australian Capital Territory records the highest rate.<br><br>
+                            State differences may reflect varied local circumstances.
+                            National averages can conceal these regional differences.
+                        </p>
+                    </aside>
+                </article>
+            </div>
+        </section>
 
         <!-- SECTION 2 -->
-        <section class="story-section">
-
+        <section class="story-section" id="trends">
             <div class="section-heading">
                 <span class="section-number">02</span>
-
                 <div>
-                    <h2>
-                        What Encourages or Prevents Participation?
-                    </h2>
-
-                    <p>
-                        Explore how motivations and barriers
-                        differ across demographic groups.
-                    </p>
-                </div>
-            </div>
-
-            <div class="chart-grid two-columns">
-
-                <div class="chart-card">
-                    <div id="vis3" class="vis-container"></div>
-
-                    <p class="chart-description">
-                        Health and fitness remain important across age groups, while enjoyment, social interaction and
-                        hobbies vary with age. This suggests that encouraging participation may require different
-                        approaches for different life stages.
-                    </p>
-                </div>
-
-                <div class="chart-card">
-                    <div id="vis5" class="vis-container"></div>
-
-                    <p class="chart-description">
-                        Health-related barriers are more frequently reported by female <br> non-participants, while
-                        physically demanding work is more frequently reported by males. Different barriers may require
-                        different approaches to increasing participation.
-                    </p>
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <!-- SECTION 3 -->
-        <section class="story-section">
-
-            <div class="section-heading">
-                <span class="section-number">03</span>
-
-                <div>
-                    <h2>Where Does Recreation Take Place?</h2>
-
-                    <p>
-                        Explore regional participation,
-                        national park locations and park visitation.
-                    </p>
-                </div>
-            </div>
-
-            <!-- TWO AUSTRALIA MAPS -->
-            <div class="chart-grid two-columns">
-
-                <div class="chart-card">
-                    <div id="map1" class="vis-container"></div>
-
-                    <p class="chart-description">
-                        Weekly participation varies across states and territories, showing that national participation
-                        figures can conceal regional differences. These differences warrant closer investigation rather
-                        than assuming that recreation habits are uniform nationwide.
-                    </p>
-                </div>
-
-                <div class="chart-card">
-                    <div id="map3" class="vis-container"></div>
-
-                    <p class="chart-description">
-                        National parks in the dataset are concentrated along parts of <br> eastern and coastal
-                        Australia,
-                        while inland areas show fewer locations. This reveals an uneven geographic distribution of the
-                        parks represented in the dataset.
-                    </p>
-                </div>
-
-            </div>
-
-            <!-- NEW SOUTH WALES MAP -->
-            <div class="chart-grid two-columns">
-
-                <div class="chart-card">
-                    <div id="map2" class="vis-container"></div>
-
-                    <p class="chart-description">
-                        High visitor numbers are concentrated in several parks around the greater Sydney region,
-                        suggesting that proximity to major population centres may play an important role in park
-                        visitation.
-                    </p>
-                </div>
-
-                <div class="context-card">
-
-                    <p class="context-label">
-                        A CLOSER LOOK
-                    </p>
-
-                    <h3>
-                        From National Coverage to Local Visitation
-                    </h3>
-
-                    <p>
-                        The Australian maps show regional
-                        participation and the geographic
-                        distribution of national parks.
-                    </p>
-
-                    <p>
-                        The New South Wales map takes a closer
-                        look at park visitation, showing
-                        how visitor numbers differ among
-                        the most visited parks.
-                    </p>
-
-                    <p>
-                        Together, these maps highlight different
-                        aspects of recreation: participation,
-                        park locations and visitor demand.
-                    </p>
-
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <!-- SECTION 4 -->
-        <section class="story-section">
-
-            <div class="section-heading">
-                <span class="section-number">04</span>
-
-                <div>
+                    <p class="section-kicker">Change over time</p>
                     <h2>How Have Recreation Habits Changed?</h2>
-
                     <p>
-                        A historical comparison of leisure
-                        activities among Australian children.
+                        Explore five activities across several survey years.
+                        Compare changing participation patterns over time.
                     </p>
                 </div>
             </div>
 
-            <div class="chart-grid two-columns">
-
-                <div class="chart-card">
+            <div class="chart-grid">
+                <article class="chart-card">
+                    <!-- Full width chart -->
                     <div id="vis4" class="vis-container"></div>
 
-                    <p class="chart-description">
-                        Internet access increased substantially between 2006 and 2012, while bike riding and reading
-                        declined modestly. This reflects a changing mix of childhood leisure activities, without
-                        establishing that one trend caused another.
+                    <!-- Two-column description underneath -->
+                    <div class="chart-text-columns">
+                        <div>
+                            <p class="insight-label">Long-term change</p>
+                            <h3 class="insight-headline">Bush walking grew rapidly before recent survey changes.</h3>
+                            <p class="insight-text">
+                                Bush walking increased by <strong>75%</strong> between 2016–17 and 2022–23.
+                                Walking increased by approximately <strong>9%</strong>.
+                            </p>
+                        </div>
+                        <div>
+                            <p class="insight-label">Recent trends</p>
+                            <h3 class="insight-headline">Cycling has declined since its 2021 peak.</h3>
+                            <p class="insight-text">
+                                Cycling peaked at <strong>3.2 million</strong> participants in 2020–21.
+                                Participation declined after that peak.<br><br>
+                                Survey methods changed in 2024.
+                                Later figures may not be directly comparable.
+                            </p>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <!-- SECTION 3 -->
+        <section class="story-section" id="places">
+            <div class="section-heading">
+                <span class="section-number">03</span>
+                <div>
+                    <p class="section-kicker">Places and public spaces</p>
+                    <h2>Where Does Recreation Happen?</h2>
+                    <p>
+                        Explore recreation settings and national park locations.
+                        Compare park distribution with reported visitation.
                     </p>
                 </div>
+            </div>
 
-                <div class="context-card">
+            <div class="chart-grid">
+                <article class="chart-card feature">
+                    <div id="vis7" class="vis-container compact-chart"></div>
+                    <aside class="insight">
+                        <p class="insight-label">Key finding</p>
+                        <h3 class="insight-headline">
+                            Public spaces support a substantial share of activity.
+                        </h3>
+                        <p class="insight-text">
+                            Public spaces account for <strong>31 out of 100</strong> reported settings.
+                            They exceed clubs, gyms and homes individually.<br><br>
+                            Shared outdoor spaces support everyday recreation.
+                            Their accessibility matters beyond national parks.
+                        </p>
+                    </aside>
+                </article>
+            </div>
 
-                    <p class="context-label">
-                        HISTORICAL PERSPECTIVE
-                    </p>
+            <!-- Map 3: Full span feature -->
+            <div class="chart-grid">
+                <article class="chart-card feature">
+                    <div id="map3" class="vis-container"></div>
+                    <aside class="insight">
+                        <p class="insight-label">Key finding</p>
+                        <h3 class="insight-headline">
+                            Recorded national parks concentrate along coastal regions.
+                        </h3>
+                        <p class="insight-text">
+                            Queensland records <strong>206</strong> parks.
+                            New South Wales records <strong>169</strong>.
+                            Together, they represent approximately <strong>63%</strong> of 599 parks.<br><br>
+                            These figures describe park counts, not total area.
+                            Missing coordinates may exclude some parks.
+                        </p>
+                    </aside>
+                </article>
+            </div>
 
-                    <h3>Changing Childhood Leisure Habits</h3>
+            <!-- Map 2: Full span feature flip -->
+            <div class="chart-grid">
+                <article class="chart-card feature flip">
+                    <div id="map2" class="vis-container"></div>
+                    <aside class="insight">
+                        <p class="insight-label">Key finding</p>
+                        <h3 class="insight-headline">
+                            Three Sydney-region parks dominate recorded visitation.
+                        </h3>
+                        <p class="insight-text">
+                            Blue Mountains received <strong>7.8 million</strong> domestic visits.
+                            Royal received <strong>4.9 million</strong>.
+                            Ku-ring-gai Chase received <strong>4.3 million</strong>.<br><br>
+                            Together, these parks represent approximately <strong>62%</strong>
+                            of visits across the ten parks displayed.
+                        </p>
+                    </aside>
+                </article>
+            </div>
+        </section>
 
+        <!-- SECTION 4 -->
+        <section class="story-section" id="barriers">
+            <div class="section-heading">
+                <span class="section-number">04</span>
+                <div>
+                    <p class="section-kicker">Motivations and access</p>
+                    <h2>What Encourages or Prevents Participation?</h2>
                     <p>
-                        Internet access increased by 24.8
-                        percentage points between 2006 and 2012.
+                        Explore motivations, barriers and spending differences.
+                        Consider how experiences vary across demographic groups.
                     </p>
-
-                    <p>
-                        Over the same period, bike riding
-                        declined by 4.3 percentage points,
-                        while reading for pleasure declined
-                        by 3.4 percentage points.
-                    </p>
-
-                    <p>
-                        These trends describe historical
-                        changes and do not establish that
-                        increased internet access caused
-                        reduced participation in other activities.
-                    </p>
-
                 </div>
+            </div>
+
+            <div class="chart-grid">
+                <article class="chart-card feature">
+                    <div id="vis3" class="vis-container"></div>
+                    <aside class="insight">
+                        <p class="insight-label">Key finding</p>
+                        <h3 class="insight-headline">
+                            Motivations shift from enjoyment towards health.
+                        </h3>
+                        <p class="insight-text">
+                            Fun and enjoyment lead among younger participants.
+                            Physical health becomes more prominent among older adults.<br><br>
+                            Outdoor enjoyment remains relevant across age groups.
+                            Recreation messaging can reflect these changing priorities.
+                        </p>
+                    </aside>
+                </article>
+            </div>
+
+            <div class="chart-grid">
+                <article class="chart-card feature flip">
+                    <div id="vis5" class="vis-container"></div>
+                    <aside class="insight">
+                        <p class="insight-label">Key finding</p>
+                        <h3 class="insight-headline">
+                            Reported barriers differ between men and women.
+                        </h3>
+                        <p class="insight-text">
+                            Women report affordability barriers at <strong>8.4%</strong>.
+                            Men report the same barrier at <strong>4.5%</strong>.<br><br>
+                            Disliking physical activity affects <strong>16.8%</strong> of women.
+                            The figure for men is <strong>11.5%</strong>.<br><br>
+                            Men more frequently report having physically demanding jobs.
+                            Different barriers may require different support strategies.
+                        </p>
+                    </aside>
+                </article>
+            </div>
+
+            <div class="chart-grid">
+                <article class="chart-card feature">
+                    <div id="vis8" class="vis-container"></div>
+                    <aside class="insight">
+                        <p class="insight-label">Key finding</p>
+                        <h3 class="insight-headline">
+                            Recreation spending follows different age patterns.
+                        </h3>
+                        <p class="insight-text">
+                            Women's average spending peaks around <strong>$1,760</strong> at ages forty-five to
+                            fifty-four.
+                            It falls to approximately <strong>$1,055</strong> among those aged sixty-five and
+                            above.<br><br>
+                            Men's spending peaks around <strong>$1,790</strong> at ages fifty-five to sixty-four.
+                            Average spending remains approximately <strong>$1,715</strong> among older men.<br><br>
+                            Spending describes the cost of participation.
+                            It does not establish whether spending causes participation.
+                        </p>
+                    </aside>
+                </article>
+            </div>
+        </section>
+
+        <!-- CONCLUSION -->
+        <footer class="dashboard-footer">
+            <div class="footer-content">
+                <p class="section-kicker">The bigger picture</p>
+                <h2>What This Means</h2>
+
+                <ol class="takeaways">
+                    <li>
+                        <strong>Recreation often begins with everyday activities.</strong>
+                        <p>
+                            Walking reaches <strong>11.4 million</strong> adults.
+                            Non-sport activities become increasingly important with age.
+                        </p>
+                    </li>
+                    <li>
+                        <strong>Accessible public spaces support active communities.</strong>
+                        <p>
+                            Public spaces represent the most common reported setting.
+                            National park visitation also concentrates near Sydney.
+                        </p>
+                    </li>
+                    <li>
+                        <strong>Participation needs differ across communities.</strong>
+                        <p>
+                            Motivations change with age.
+                            Affordability and enjoyment also influence reported barriers.
+                        </p>
+                    </li>
+                </ol>
+
+                <p class="conclusion-text">
+                    Protect accessible recreation spaces across Australian communities.
+                    Tailor support to different needs and life stages.
+                </p>
 
             </div>
 
-        </section>
+            <div class="footer-bottom">
+                <section class="references">
+                    <h3>References</h3>
+                    <ul class="reference-list">
+                        <li>
+                            Australian Sports Commission. (n.d.). <em>AusPlay results 2015-2023</em>. Retrieved October
+                            11, 2026, from
+                            <a href="https://www.ausport.gov.au/clearinghouse/research/ausplay/2015-2023"
+                                target="_blank"
+                                rel="noopener noreferrer">https://www.ausport.gov.au/clearinghouse/research/ausplay/2015-2023</a>
+                        </li>
+                        <li>
+                            Australian Sports Commission. (2026, April 30). <em>AusPlay data tables: January-December
+                                2025</em>.
+                            <a href="https://www.ausport.gov.au/clearinghouse/research/ausplay/results" target="_blank"
+                                rel="noopener noreferrer">https://www.ausport.gov.au/clearinghouse/research/ausplay/results</a>
+                        </li>
+                        <li>
+                            Camper Champ. (2026, October 14). <em>National parks in Australia: statistics and
+                                facts</em>.
+                            <a href="https://camperchamp.com.au/national-parks-statistics/" target="_blank"
+                                rel="noopener noreferrer">https://camperchamp.com.au/national-parks-statistics/</a>
+                        </li>
+                        <li>
+                            Destination NSW. (2026, April 20). <em>Record visits to NSW national parks drive economic
+                                growth and regional jobs</em>.
+                            <a href="https://www.destinationnsw.com.au/newsroom/record-visits-to-nsw-national-parks-drive-economic-growth-and-regional-jobs"
+                                target="_blank"
+                                rel="noopener noreferrer">https://www.destinationnsw.com.au/newsroom/record-visits-to-nsw-national-parks-drive-economic-growth-and-regional-jobs</a>
+                        </li>
+                        <li>
+                            <em>List of national parks of Australia</em>. (n.d.). In <em>Wikipedia</em>.
+                            Retrieved October 13, 2026, from <a
+                                href="https://en.wikipedia.org/wiki/List_of_national_parks_of_Australia" target="_blank"
+                                rel="noopener noreferrer">https://en.wikipedia.org/wiki/List_of_national_parks_of_Australia</a>
+                        </li>
+                    </ul>
+                </section>
 
+                <p class="footer-credit">
+                    Created by Cheong Wai Yan | 27 October 2026
+                </p>
 
-        <!-- FOOTER -->
-        <footer class="dashboard-footer">
-
-            <h2>Conclusion</h2>
-
-            <p class="conclusion-text">
-                Recreation participation varies by activity,
-                demographic group and location.
-                Understanding motivations and barriers
-                can help identify opportunities
-                to encourage wider participation.
-            </p>
-
-            <p class="footer-credit">
-                Created by Cheong Wai Yan | 15 October 2026
-            </p>
+            </div>
 
         </footer>
 
     </main>
 
     <script src="js/visualisations.js"></script>
-
 </body>
 
 </html>
