@@ -1,7 +1,8 @@
 {
     "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
     "title": {
-        "text": "Average Participation Spending by Age and Gender",
+        "text": "The Gender Gap in Recreation Spending",
+        "subtitle": "How average spending shifts across age and gender.",
         "anchor": "start",
         "fontSize": 20,
         "subtitleFontSize": 14,
@@ -118,7 +119,8 @@
                     "field": "Spending",
                     "type": "quantitative",
                     "scale": {
-                        "zero": true
+                        "zero": true,
+                        "domainMax": 2200
                     },
                     "axis": {
                         "title": "Average spending ($)",
@@ -171,68 +173,51 @@
             "data": {
                 "values": [
                     {
-                        "Age": "65+",
-                        "Spending": 1200,
-                        "label": "Women's spending drops by $456\nafter age 65.",
-                        "lineX": "65+",
-                        "lineX2": "65+",
-                        "lineY": 1054,
-                        "lineY2": 1150,
-                        "textX": "65+",
-                        "textY": 1200
+                        "Age": "55–64",
+                        "Gender": "Male",
+                        "Spending": 1792,
+                        "label": "Highest spending: $1,792 for Male aged 55–64"
                     }
                 ]
             },
-            "layer": [
-                {
-                    "mark": {
-                        "type": "rule",
-                        "color": "#D98E65",
-                        "strokeWidth": 1
-                    },
-                    "encoding": {
-                        "x": {
-                            "field": "lineX",
-                            "type": "ordinal"
-                        },
-                        "x2": {
-                            "field": "lineX2"
-                        },
-                        "y": {
-                            "field": "lineY",
-                            "type": "quantitative"
-                        },
-                        "y2": {
-                            "field": "lineY2"
-                        }
-                    }
+            "mark": {
+                "type": "text",
+                "align": "center",
+                "baseline": "bottom",
+                "dy": -8,
+                "fontSize": 11,
+                "fontWeight": "bold",
+                "color": "#000000"
+            },
+            "encoding": {
+                "x": {
+                    "field": "Age",
+                    "type": "ordinal",
+                    "sort": [
+                        "15–17",
+                        "18–24",
+                        "25–34",
+                        "35–44",
+                        "45–54",
+                        "55–64",
+                        "65+"
+                    ]
                 },
-                {
-                    "mark": {
-                        "type": "text",
-                        "align": "left",
-                        "baseline": "middle",
-                        "dx": 12,
-                        "dy": 0,
-                        "fontSize": 11,
-                        "fontWeight": "bold",
-                        "color": "#000000"
-                    },
-                    "encoding": {
-                        "x": {
-                            "field": "textX",
-                            "type": "ordinal"
-                        },
-                        "y": {
-                            "field": "textY",
-                            "type": "quantitative"
-                        },
-                        "text": {
-                            "field": "label"
-                        }
-                    }
+                "xOffset": {
+                    "field": "Gender",
+                    "sort": [
+                        "Male",
+                        "Female"
+                    ]
+                },
+                "y": {
+                    "field": "Spending",
+                    "type": "quantitative"
+                },
+                "text": {
+                    "field": "label"
                 }
-            ]
+            }
         }
     ],
     "config": {

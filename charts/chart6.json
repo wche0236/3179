@@ -1,6 +1,6 @@
 {
     "$schema": "https://vega.github.io/schema/vega/v6.json",
-    "height": 350,
+    "height": 400,
     "padding": 5,
     "autosize": {
         "type": "fit-x",
@@ -8,7 +8,7 @@
     },
     "title": {
         "text": "Sport Gives Way to Non-Sport Activity With Age",
-        "subtitle": "Estimated adult participants (15+) by age group and type of activity",
+        "subtitle": "Estimated adult participants by age group and type of activity",
         "anchor": "start",
         "fontSize": 20,
         "subtitleFontSize": 14,
@@ -346,8 +346,8 @@
                 "Non-sport only"
             ],
             "range": [
-                "#6b5b95",
-                "#b56576",
+                "#1A365D",
+                "#C75B39",
                 "#6d6875"
             ]
         }
@@ -585,7 +585,7 @@
                         "value": "middle"
                     },
                     "text": {
-                        "signal": "format(datum.v / 1000000, '.1f') + 'M people · ' + format(datum.v / totalPeople, '.0%')"
+                        "signal": "format(datum.v / 1000000, '.1f') + 'M people'"
                     },
                     "fontSize": {
                         "value": 12

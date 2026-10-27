@@ -1,7 +1,7 @@
 {
     "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
     "width": "container",
-    "height": 500,
+    "height": 400,
     "autosize": {
         "type": "fit",
         "contains": "padding"
@@ -98,7 +98,13 @@
                     0,
                     75
                 ],
-                "scheme": "yellowgreenblue"
+                "range": [
+                    "#F4EAF2",
+                    "#DBC1DB",
+                    "#BEA0C4",
+                    "#9A7A9F",
+                    "#6D4E70"
+                ]
             },
             "legend": {
                 "fontWeight": "bold",

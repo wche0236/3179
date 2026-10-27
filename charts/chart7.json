@@ -8,7 +8,7 @@
     },
     "title": {
         "text": "Public Spaces Are Where Australians Are Most Often Active",
-        "subtitle": "Of every 100 places where active adults take part, which types are they? One square = 1 in 100",
+        "subtitle": "Activity settings out of every 100 adults.",
         "anchor": "start",
         "font": "Source Sans 3",
         "fontSize": 20,
@@ -120,11 +120,11 @@
                             "School and workplace"
                         ],
                         "range": [
-                            "#1F6B3A",
-                            "#8B5FA8",
-                            "#3B7CB5",
-                            "#E8A33D",
-                            "#9AA3AD"
+                            "#A8D5BA",
+                            "#C3B1E1",
+                            "#A2C8E6",
+                            "#FDE2A7",
+                            "#D3D3D3"
                         ]
                     },
                     "legend": null
@@ -193,14 +193,14 @@
                             "Clubs and community facilities",
                             "Gyms and commercial venues",
                             "Home",
-                            "School and work"
+                            "School and workplace"
                         ],
                         "range": [
-                            "#1F6B3A",
-                            "#8B5FA8",
-                            "#3B7CB5",
-                            "#E8A33D",
-                            "#9AA3AD"
+                            "#A8D5BA",
+                            "#C3B1E1",
+                            "#A2C8E6",
+                            "#FDE2A7",
+                            "#D3D3D3"
                         ]
                     },
                     "legend": null
@@ -221,7 +221,7 @@
                 "type": "text",
                 "align": "left",
                 "baseline": "middle",
-                "fontSize": 17,
+                "fontSize": 15,
                 "fontWeight": "bold",
                 "color": "#26372D"
             },

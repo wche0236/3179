@@ -155,6 +155,58 @@
                     }
                 ]
             }
+        },
+        {
+            "data": {
+                "values": [
+                    {
+                        "Activity": "Golf",
+                        "Male": 81.3,
+                        "Label": "Men make up over 75% of Golf and Fishing participants"
+                    }
+                ]
+            },
+            "mark": {
+                "type": "text",
+                "align": "right",
+                "baseline": "bottom",
+                "dx": 70,
+                "dy": 60,
+                "fontSize": 11,
+                "fontWeight": "bold",
+                "color": "#000000"
+            },
+            "encoding": {
+                "x": {
+                    "field": "Male",
+                    "type": "quantitative",
+                    "scale": {
+                        "domain": [
+                            0,
+                            100
+                        ]
+                    }
+                },
+                "y": {
+                    "field": "Activity",
+                    "type": "nominal",
+                    "sort": [
+                        "Walking",
+                        "Bush walking",
+                        "Running",
+                        "Swimming",
+                        "Cycling",
+                        "Golf",
+                        "Surfing",
+                        "Fishing",
+                        "Kayaking",
+                        "Mountain climbing"
+                    ]
+                },
+                "text": {
+                    "field": "Label"
+                }
+            }
         }
     ],
     "config": {
