@@ -1,244 +1,827 @@
 {
-    "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
-    "width": "container",
+    "$schema": "https://vega.github.io/schema/vega/v6.json",
+    "description": "National Parks Across Australia with state selection, zooming and panning.",
+    "width": 850,
     "height": 500,
+    "padding": {
+        "top": 10,
+        "left": 10,
+        "right": 10,
+        "bottom": 10
+    },
     "autosize": {
         "type": "fit",
         "contains": "padding"
     },
     "title": {
         "text": "National Parks Across Australia",
-        "subtitle": "Locations of parks included in the dataset",
+        "subtitle": "Explore the distribution of over 200 national parks",
         "anchor": "start",
         "fontSize": 20,
         "subtitleFontSize": 14,
         "offset": 14
     },
-    "projection": {
-        "type": "mercator"
-    },
-    "layer": [
+    "signals": [
         {
-            "data": {
-                "url": "js/australia_states.json",
-                "format": {
-                    "type": "topojson",
-                    "feature": "STE_2026_AUST_GDA2020"
-                }
-            },
-            "mark": {
-                "type": "geoshape",
-                "fill": "#E9EEE9",
-                "stroke": "black",
-                "strokeWidth": 1
-            }
-        },
-        {
-            "data": {
-                "values": [
-                    {
-                        "Abbreviation": "NSW",
-                        "Longitude": 147,
-                        "Latitude": -32
-                    },
-                    {
-                        "Abbreviation": "VIC",
-                        "Longitude": 144.5,
-                        "Latitude": -37.1
-                    },
-                    {
-                        "Abbreviation": "QLD",
-                        "Longitude": 144,
-                        "Latitude": -22.5
-                    },
-                    {
-                        "Abbreviation": "SA",
-                        "Longitude": 135,
-                        "Latitude": -30
-                    },
-                    {
-                        "Abbreviation": "WA",
-                        "Longitude": 122,
-                        "Latitude": -26
-                    },
-                    {
-                        "Abbreviation": "TAS",
-                        "Longitude": 146.6,
-                        "Latitude": -42
-                    },
-                    {
-                        "Abbreviation": "NT",
-                        "Longitude": 133.5,
-                        "Latitude": -20
-                    }
-                ]
-            },
-            "mark": {
-                "type": "text",
-                "fontSize": 12,
-                "fontWeight": "bold",
-                "color": "#253D2C",
-                "opacity": 1
-            },
-            "encoding": {
-                "longitude": {
-                    "field": "Longitude",
-                    "type": "quantitative"
-                },
-                "latitude": {
-                    "field": "Latitude",
-                    "type": "quantitative"
-                },
-                "text": {
-                    "field": "Abbreviation",
-                    "type": "nominal"
-                }
-            }
-        },
-        {
-            "data": {
-                "url": "data/australia_national_parks_clean.csv"
-            },
-            "mark": {
-                "type": "circle",
-                "size": 28,
-                "color": "#4F7D5B",
-                "opacity": 0.65,
-                "stroke": "#FFFFFF",
-                "strokeWidth": 0.3
-            },
-            "encoding": {
-                "longitude": {
-                    "field": "Longitude",
-                    "type": "quantitative"
-                },
-                "latitude": {
-                    "field": "Latitude",
-                    "type": "quantitative"
-                },
-                "tooltip": [
-                    {
-                        "field": "Name",
-                        "title": "National park"
-                    },
-                    {
-                        "field": "State_Territory",
-                        "title": "State or territory"
-                    },
-                    {
-                        "field": "Year_Established",
-                        "type": "quantitative",
-                        "title": "Year established",
-                        "format": "d"
-                    }
+            "name": "selectedState",
+            "value": "All states and territories",
+            "bind": {
+                "input": "select",
+                "name": "Select state or territory: ",
+                "options": [
+                    "All states and territories",
+                    "Australian Capital Territory",
+                    "New South Wales",
+                    "Northern Territory",
+                    "Queensland",
+                    "South Australia",
+                    "Tasmania",
+                    "Victoria",
+                    "Western Australia"
                 ]
             }
         },
         {
-            "data": {
-                "values": [
-                    {
-                        "Longitude": 149.12,
-                        "Latitude": -35.47,
-                        "LabelLongitude": 152.0,
-                        "LabelLatitude": -35.3
-                    }
-                ]
-            },
-            "mark": {
-                "type": "rule",
-                "color": "#253D2C",
-                "strokeWidth": 1.3
-            },
-            "encoding": {
-                "longitude": {
-                    "field": "Longitude",
-                    "type": "quantitative"
+            "name": "center_to",
+            "update": "selectedState === 'New South Wales' ? [147, -32.5] : selectedState === 'Victoria' ? [145.5, -36.5] : selectedState === 'Queensland' ? [145, -22] : selectedState === 'Western Australia' ? [121, -25] : selectedState === 'South Australia' ? [135, -30] : selectedState === 'Northern Territory' ? [133, -19] : selectedState === 'Tasmania' ? [146.5, -42] : selectedState === 'Australian Capital Territory' ? [149.1, -35.4] : [134, -28]"
+        },
+        {
+            "name": "defaultZoom",
+            "update": "selectedState === 'All states and territories' ? 550 : selectedState === 'Western Australia' ? 850 : selectedState === 'Queensland' ? 900 : selectedState === 'South Australia' ? 950 : selectedState === 'Northern Territory' ? 1000 : selectedState === 'New South Wales' ? 1500 : selectedState === 'Victoria' ? 1700 : selectedState === 'Tasmania' ? 1800 : 2200"
+        },
+        {
+            "name": "zoom_level",
+            "value": 550,
+            "on": [
+                {
+                    "events": {
+                        "signal": "selectedState"
+                    },
+                    "update": "defaultZoom"
                 },
-                "latitude": {
-                    "field": "Latitude",
-                    "type": "quantitative"
+                {
+                    "events": {
+                        "type": "wheel",
+                        "consume": true,
+                        "filter": [
+                            "event.shiftKey === false",
+                            "x() >= 0",
+                            "x() <= width",
+                            "y() >= 0",
+                            "y() <= height"
+                        ]
+                    },
+                    "update": "clamp(zoom_level * pow(1.001, -event.deltaY * pow(16, event.deltaMode)), 350, 5000)"
                 },
-                "longitude2": {
-                    "field": "LabelLongitude"
-                },
-                "latitude2": {
-                    "field": "LabelLatitude"
+                {
+                    "events": "@resetLabel:click",
+                    "update": "defaultZoom"
                 }
+            ],
+            "bind": {
+                "input": "range",
+                "min": 350,
+                "max": 5000,
+                "step": 50,
+                "name": "Zoom: "
             }
         },
         {
-            "data": {
-                "values": [
-                    {
-                        "Longitude": 149.12,
-                        "Latitude": -35.47
-                    }
-                ]
-            },
-            "mark": {
-                "type": "point",
-                "filled": true,
-                "size": 35,
-                "color": "#253D2C"
-            },
-            "encoding": {
-                "longitude": {
-                    "field": "Longitude",
-                    "type": "quantitative"
+            "name": "dragStart",
+            "value": null,
+            "on": [
+                {
+                    "events": "@mapSurface:pointerdown",
+                    "update": "{x:x(), y:y(), panX:pan.x, panY:pan.y}"
                 },
-                "latitude": {
-                    "field": "Latitude",
-                    "type": "quantitative"
+                {
+                    "events": "window:pointerup",
+                    "update": "null"
                 }
-            }
+            ]
         },
         {
-            "data": {
-                "values": [
-                    {
-                        "Abbreviation": "ACT",
-                        "Longitude": 152.0,
-                        "Latitude": -35.3
-                    }
-                ]
+            "name": "pan",
+            "value": {
+                "x": 0,
+                "y": 0
             },
-            "mark": {
-                "type": "text",
-                "align": "left",
-                "baseline": "middle",
-                "dx": 5,
-                "fontSize": 12,
-                "fontWeight": "bold",
-                "color": "#253D2C"
-            },
-            "encoding": {
-                "longitude": {
-                    "field": "Longitude",
-                    "type": "quantitative"
+            "on": [
+                {
+                    "events": {
+                        "source": "window",
+                        "type": "pointermove",
+                        "between": [
+                            {
+                                "source": "view",
+                                "type": "pointerdown"
+                            },
+                            {
+                                "source": "window",
+                                "type": "pointerup"
+                            }
+                        ],
+                        "consume": true
+                    },
+                    "update": "dragStart ? {x: dragStart.panX + x() - dragStart.x, y: dragStart.panY + y() - dragStart.y} : pan"
                 },
-                "latitude": {
-                    "field": "Latitude",
-                    "type": "quantitative"
+                {
+                    "events": {
+                        "signal": "selectedState"
+                    },
+                    "update": "{x: 0, y: 0}"
                 },
-                "text": {
-                    "field": "Abbreviation",
-                    "type": "nominal"
+                {
+                    "events": "@resetLabel:click",
+                    "update": "{x: 0, y: 0}"
                 }
+            ]
+        }
+    ],
+    "data": [
+        {
+            "name": "states",
+            "url": "js/australia_states.json",
+            "format": {
+                "type": "topojson",
+                "feature": "STE_2026_AUST_GDA2020"
+            },
+            "transform": [
+                {
+                    "type": "geoshape",
+                    "projection": "projection",
+                    "as": "shape"
+                }
+            ]
+        },
+        {
+            "name": "parks",
+            "url": "data/australia_national_parks_clean.csv",
+            "format": {
+                "type": "csv",
+                "parse": {
+                    "Longitude": "number",
+                    "Latitude": "number",
+                    "Year_Established": "number"
+                }
+            },
+            "transform": [
+                {
+                    "type": "filter",
+                    "expr": "selectedState === 'All states and territories' || datum.State_Territory === selectedState"
+                },
+                {
+                    "type": "filter",
+                    "expr": "isValid(datum.Longitude) && isValid(datum.Latitude)"
+                },
+                {
+                    "type": "geopoint",
+                    "projection": "projection",
+                    "fields": [
+                        "Longitude",
+                        "Latitude"
+                    ],
+                    "as": [
+                        "x",
+                        "y"
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "stateLabels",
+            "values": [
+                {
+                    "State_Territory": "Western Australia",
+                    "Longitude": 122,
+                    "Latitude": -26
+                },
+                {
+                    "State_Territory": "Northern Territory",
+                    "Longitude": 133.5,
+                    "Latitude": -20
+                },
+                {
+                    "State_Territory": "South Australia",
+                    "Longitude": 135,
+                    "Latitude": -30
+                },
+                {
+                    "State_Territory": "Queensland",
+                    "Longitude": 144,
+                    "Latitude": -22.5
+                },
+                {
+                    "State_Territory": "New South Wales",
+                    "Longitude": 146,
+                    "Latitude": -32
+                },
+                {
+                    "State_Territory": "Victoria",
+                    "Longitude": 144,
+                    "Latitude": -37.1
+                }
+            ],
+            "transform": [
+                {
+                    "type": "geopoint",
+                    "projection": "projection",
+                    "fields": [
+                        "Longitude",
+                        "Latitude"
+                    ],
+                    "as": [
+                        "x",
+                        "y"
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "tasmaniaCallout",
+            "values": [
+                {
+                    "Longitude": 146.6,
+                    "Latitude": -42,
+                    "LabelLongitude": 151,
+                    "LabelLatitude": -43
+                }
+            ],
+            "transform": [
+                {
+                    "type": "geopoint",
+                    "projection": "projection",
+                    "fields": [
+                        "Longitude",
+                        "Latitude"
+                    ],
+                    "as": [
+                        "x1",
+                        "y1"
+                    ]
+                },
+                {
+                    "type": "geopoint",
+                    "projection": "projection",
+                    "fields": [
+                        "LabelLongitude",
+                        "LabelLatitude"
+                    ],
+                    "as": [
+                        "x2",
+                        "y2"
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "actCallout",
+            "values": [
+                {
+                    "Longitude": 149.15,
+                    "Latitude": -35.47,
+                    "LabelLongitude": 152.5,
+                    "LabelLatitude": -37.5
+                }
+            ],
+            "transform": [
+                {
+                    "type": "geopoint",
+                    "projection": "projection",
+                    "fields": [
+                        "Longitude",
+                        "Latitude"
+                    ],
+                    "as": [
+                        "x1",
+                        "y1"
+                    ]
+                },
+                {
+                    "type": "geopoint",
+                    "projection": "projection",
+                    "fields": [
+                        "LabelLongitude",
+                        "LabelLatitude"
+                    ],
+                    "as": [
+                        "x2",
+                        "y2"
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "tasmaniaLabel",
+            "values": [
+                {
+                    "State_Territory": "Tasmania",
+                    "Longitude": 151,
+                    "Latitude": -43
+                }
+            ],
+            "transform": [
+                {
+                    "type": "geopoint",
+                    "projection": "projection",
+                    "fields": [
+                        "Longitude",
+                        "Latitude"
+                    ],
+                    "as": [
+                        "x",
+                        "y"
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "actLabel",
+            "values": [
+                {
+                    "State_Territory": "Australian Capital Territory",
+                    "Longitude": 152.5,
+                    "Latitude": -37.5
+                }
+            ],
+            "transform": [
+                {
+                    "type": "geopoint",
+                    "projection": "projection",
+                    "fields": [
+                        "Longitude",
+                        "Latitude"
+                    ],
+                    "as": [
+                        "x",
+                        "y"
+                    ]
+                }
+            ]
+        }
+    ],
+    "projections": [
+        {
+            "name": "projection",
+            "type": "mercator",
+            "center": {
+                "signal": "center_to"
+            },
+            "scale": {
+                "signal": "zoom_level"
+            },
+            "translate": {
+                "signal": "[width / 2 + pan.x, height / 2 + pan.y]"
             }
         }
     ],
+    "marks": [
+        {
+            "name": "mapPanel",
+            "type": "group",
+            "clip": true,
+            "encode": {
+                "update": {
+                    "width": {
+                        "signal": "width"
+                    },
+                    "height": {
+                        "signal": "height"
+                    }
+                }
+            },
+            "marks": [
+                {
+                    "name": "mapSurface",
+                    "type": "rect",
+                    "encode": {
+                        "update": {
+                            "width": {
+                                "signal": "width"
+                            },
+                            "height": {
+                                "signal": "height"
+                            },
+                            "fill": {
+                                "value": "transparent"
+                            },
+                            "cursor": {
+                                "value": "grab"
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "stateShapes",
+                    "type": "shape",
+                    "from": {
+                        "data": "states"
+                    },
+                    "encode": {
+                        "update": {
+                            "shape": {
+                                "field": "shape"
+                            },
+                            "fill": {
+                                "value": "#E9EEE9"
+                            },
+                            "stroke": {
+                                "value": "black"
+                            },
+                            "strokeWidth": {
+                                "value": 0.8
+                            },
+                            "tooltip": {
+                                "signal": "datum.properties.STE_NAME || datum.properties.STATE_NAME || datum.properties.STATE || 'Australian state or territory'"
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "parkDots",
+                    "type": "symbol",
+                    "from": {
+                        "data": "parks"
+                    },
+                    "encode": {
+                        "update": {
+                            "x": {
+                                "field": "x"
+                            },
+                            "y": {
+                                "field": "y"
+                            },
+                            "shape": {
+                                "value": "circle"
+                            },
+                            "size": {
+                                "value": 45
+                            },
+                            "fill": {
+                                "value": "#4F7D5B"
+                            },
+                            "fillOpacity": {
+                                "value": 0.75
+                            },
+                            "stroke": {
+                                "value": "#FFFFFF"
+                            },
+                            "strokeWidth": {
+                                "value": 0.5
+                            },
+                            "tooltip": {
+                                "signal": "{'National park': datum.Name, 'State or territory': datum.State_Territory, 'Year established': isValid(datum.Year_Established) ? datum.Year_Established : 'Unknown'}"
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "stateText",
+                    "type": "text",
+                    "from": {
+                        "data": "stateLabels"
+                    },
+                    "encode": {
+                        "update": {
+                            "x": {
+                                "field": "x"
+                            },
+                            "y": {
+                                "field": "y"
+                            },
+                            "text": {
+                                "field": "State_Territory"
+                            },
+                            "font": {
+                                "value": "Arial"
+                            },
+                            "fontSize": {
+                                "value": 10
+                            },
+                            "fontWeight": {
+                                "value": "bold"
+                            },
+                            "fill": {
+                                "value": "#253D2C"
+                            },
+                            "align": {
+                                "value": "center"
+                            },
+                            "baseline": {
+                                "value": "middle"
+                            },
+                            "opacity": {
+                                "signal": "selectedState === 'All states and territories' ? 1 : 0"
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "tasmaniaLine",
+                    "type": "rule",
+                    "from": {
+                        "data": "tasmaniaCallout"
+                    },
+                    "encode": {
+                        "update": {
+                            "x": {
+                                "field": "x1"
+                            },
+                            "y": {
+                                "field": "y1"
+                            },
+                            "x2": {
+                                "field": "x2"
+                            },
+                            "y2": {
+                                "field": "y2"
+                            },
+                            "stroke": {
+                                "value": "#253D2C"
+                            },
+                            "strokeWidth": {
+                                "value": 1.3
+                            },
+                            "opacity": {
+                                "signal": "selectedState === 'All states and territories' || selectedState === 'Tasmania' ? 1 : 0"
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "tasmaniaText",
+                    "type": "text",
+                    "from": {
+                        "data": "tasmaniaLabel"
+                    },
+                    "encode": {
+                        "update": {
+                            "x": {
+                                "field": "x"
+                            },
+                            "y": {
+                                "field": "y"
+                            },
+                            "text": {
+                                "field": "State_Territory"
+                            },
+                            "align": {
+                                "value": "left"
+                            },
+                            "baseline": {
+                                "value": "middle"
+                            },
+                            "dx": {
+                                "value": 5
+                            },
+                            "font": {
+                                "value": "Arial"
+                            },
+                            "fontSize": {
+                                "value": 10
+                            },
+                            "fontWeight": {
+                                "value": "bold"
+                            },
+                            "fill": {
+                                "value": "#253D2C"
+                            },
+                            "opacity": {
+                                "signal": "selectedState === 'All states and territories' || selectedState === 'Tasmania' ? 1 : 0"
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "actLine",
+                    "type": "rule",
+                    "from": {
+                        "data": "actCallout"
+                    },
+                    "encode": {
+                        "update": {
+                            "x": {
+                                "field": "x1"
+                            },
+                            "y": {
+                                "field": "y1"
+                            },
+                            "x2": {
+                                "field": "x2"
+                            },
+                            "y2": {
+                                "field": "y2"
+                            },
+                            "stroke": {
+                                "value": "#253D2C"
+                            },
+                            "strokeWidth": {
+                                "value": 1.3
+                            },
+                            "opacity": {
+                                "signal": "selectedState === 'All states and territories' || selectedState === 'Australian Capital Territory' ? 1 : 0"
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "actText",
+                    "type": "text",
+                    "from": {
+                        "data": "actLabel"
+                    },
+                    "encode": {
+                        "update": {
+                            "x": {
+                                "field": "x"
+                            },
+                            "y": {
+                                "field": "y"
+                            },
+                            "text": {
+                                "field": "State_Territory"
+                            },
+                            "font": {
+                                "value": "Arial"
+                            },
+                            "fontSize": {
+                                "value": 10
+                            },
+                            "fontWeight": {
+                                "value": "bold"
+                            },
+                            "fill": {
+                                "value": "#253D2C"
+                            },
+                            "align": {
+                                "value": "left"
+                            },
+                            "dx": {
+                                "value": 2
+                            },
+                            "baseline": {
+                                "value": "middle"
+                            },
+                            "opacity": {
+                                "signal": "selectedState === 'All states and territories' || selectedState === 'Australian Capital Territory' ? 1 : 0"
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "legendDot",
+                    "type": "symbol",
+                    "encode": {
+                        "update": {
+                            "x": {
+                                "value": 18
+                            },
+                            "y": {
+                                "signal": "height - 20"
+                            },
+                            "size": {
+                                "value": 110
+                            },
+                            "shape": {
+                                "value": "circle"
+                            },
+                            "fill": {
+                                "value": "#4F7D5B"
+                            },
+                            "fillOpacity": {
+                                "value": 0.75
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "legendText",
+                    "type": "text",
+                    "encode": {
+                        "update": {
+                            "x": {
+                                "value": 31
+                            },
+                            "y": {
+                                "signal": "height - 20"
+                            },
+                            "text": {
+                                "value": "One dot represents one national park"
+                            },
+                            "font": {
+                                "value": "Arial"
+                            },
+                            "fontSize": {
+                                "value": 13
+                            },
+                            "fill": {
+                                "value": "#253D2C"
+                            },
+                            "baseline": {
+                                "value": "middle"
+                            },
+                            "limit": {
+                                "value": 300
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "resetLabel",
+                    "type": "text",
+                    "encode": {
+                        "update": {
+                            "x": {
+                                "signal": "width - 12"
+                            },
+                            "y": {
+                                "value": 18
+                            },
+                            "text": {
+                                "value": "Reset view"
+                            },
+                            "align": {
+                                "value": "right"
+                            },
+                            "baseline": {
+                                "value": "middle"
+                            },
+                            "font": {
+                                "value": "Arial"
+                            },
+                            "fontSize": {
+                                "value": 12
+                            },
+                            "fill": {
+                                "value": "#3366A6"
+                            },
+                            "cursor": {
+                                "value": "pointer"
+                            }
+                        },
+                        "hover": {
+                            "fill": {
+                                "value": "#24517C"
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "mapFrame",
+                    "type": "rect",
+                    "interactive": false,
+                    "encode": {
+                        "update": {
+                            "x": {
+                                "value": 0
+                            },
+                            "y": {
+                                "value": 0
+                            },
+                            "width": {
+                                "signal": "width"
+                            },
+                            "height": {
+                                "signal": "height"
+                            },
+                            "fill": {
+                                "value": null
+                            },
+                            "stroke": {
+                                "value": "#AEBDAE"
+                            },
+                            "strokeWidth": {
+                                "value": 0.7
+                            }
+                        }
+                    }
+                }
+            ]
+        }
+    ],
     "config": {
+        "font": "Source Sans 3",
         "view": {
             "stroke": null
         },
+        "title": {
+            "fontSize": 20,
+            "subtitleFont": "Source Sans 3",
+            "subtitleFontSize": 14,
+            "fontWeight": "bold",
+            "subtitleFontWeight": "normal",
+            "anchor": "start",
+            "offset": 14
+        },
         "axis": {
-            "labelFontSize": 14,
-            "titleFontSize": 15
+            "labelFontSize": 12,
+            "titleFontSize": 13,
+            "titleFontWeight": "normal"
         },
         "legend": {
-            "labelFontSize": 14,
-            "titleFontSize": 14
+            "labelFontSize": 12,
+            "titleFontSize": 13,
+            "titleFontWeight": "normal"
         }
     }
 }

@@ -31,8 +31,11 @@ vegaEmbed("#map2", "js/map2.json")
     });
 
 vegaEmbed("#map3", "js/map3.json", {
-    actions: true
-}).catch(console.error);
+    actions: false,
+    renderer: "canvas"
+}).catch(function (error) {
+    console.error("Failed to render the national parks map:", error);
+});
 
 vegaEmbed("#vis3", "charts/chart3.json", {
     actions: true
@@ -43,5 +46,17 @@ vegaEmbed("#vis4", "charts/chart4.json", {
 }).catch(console.error);
 
 vegaEmbed("#vis5", "charts/chart5.json", {
+    actions: true
+}).catch(console.error);
+
+vegaEmbed("#vis6", "charts/chart6.json", {
+    actions: true
+}).catch(console.error);
+
+vegaEmbed("#vis7", "charts/chart7.json", {
+    actions: true
+}).catch(console.error);
+
+vegaEmbed("#vis8", "charts/chart8.json", {
     actions: true
 }).catch(console.error);

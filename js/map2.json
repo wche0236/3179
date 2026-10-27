@@ -8,7 +8,7 @@
     },
     "title": {
         "text": "Most Visited Parks in New South Wales",
-        "subtitle": "Domestic visits to the 10 most visited parks, 2024–25",
+        "subtitle": "Domestic visits to the 10 most visited parks, 2024-25",
         "anchor": "start",
         "fontSize": 20,
         "subtitleFontSize": 14,
@@ -212,16 +212,28 @@
         }
     ],
     "config": {
+        "font": "Source Sans 3",
         "view": {
             "stroke": null
         },
+        "title": {
+            "fontSize": 20,
+            "subtitleFont": "Source Sans 3",
+            "subtitleFontSize": 14,
+            "fontWeight": "bold",
+            "subtitleFontWeight": "normal",
+            "anchor": "start",
+            "offset": 14
+        },
         "axis": {
-            "labelFontSize": 14,
-            "titleFontSize": 15
+            "labelFontSize": 12,
+            "titleFontSize": 13,
+            "titleFontWeight": "normal"
         },
         "legend": {
-            "labelFontSize": 14,
-            "titleFontSize": 14
+            "labelFontSize": 12,
+            "titleFontSize": 13,
+            "titleFontWeight": "normal"
         }
     }
 }
