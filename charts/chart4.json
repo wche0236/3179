@@ -1,181 +1,262 @@
 {
     "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
+    "background": "#f7fafc",
     "width": "container",
-    "height": 500,
-    "autosize": {
-        "type": "fit",
-        "contains": "padding"
+    "height": 380,
+    "padding": {
+        "left": 10,
+        "right": 15,
+        "top": 10,
+        "bottom": 5
     },
     "title": {
-        "text": "Childhood Recreation Habits Shifted",
-        "subtitle": "Australian children aged 5 to 14, 2006 and 2012",
+        "text": "How Has Participation in Different Activities Changed?",
+        "subtitle": "Estimated adult participants by activity, 2017–2025.",
         "anchor": "start",
+        "font": "Arial",
         "fontSize": 20,
-        "subtitleFontSize": 14,
-        "offset": 14
+        "subtitleFontSize": 12,
+        "offset": 14,
+        "color": "#243447"
     },
-    "config": {
-        "view": {
-            "stroke": null
-        },
-        "axis": {
-            "labelFontSize": 14,
-            "titleFontSize": 15
-        },
-        "legend": {
-            "labelFontSize": 14,
-            "titleFontSize": 14
+    "params": [
+        {
+            "name": "yearWindow",
+            "select": {
+                "type": "interval",
+                "encodings": [
+                    "x"
+                ]
+            },
+            "views": [
+                "yearOverview"
+            ]
         }
-    },
+    ],
     "data": {
-        "url": "data/children_recreation_trends.csv",
+        "url": "data/activity_trend_top5.csv",
         "format": {
             "type": "csv",
             "parse": {
-                "Year": "number",
-                "Participation Rate": "number"
+                "PeriodOrder": "number",
+                "Participants": "number"
             }
         }
     },
     "transform": [
         {
-            "calculate": "datum['Participation Rate']",
-            "as": "Rate"
+            "filter": "isValid(datum.PeriodOrder) && isValid(datum.Participants)"
         },
         {
-            "calculate": "datum.Year == 2006 ? '2006' : '2012'",
-            "as": "Year Label"
+            "calculate": "2017 + datum.PeriodOrder",
+            "as": "Year"
+        },
+        {
+            "calculate": "isValid(datum.Activity) ? datum.Activity : 'Unknown'",
+            "as": "ActivityLabel"
         }
     ],
-    "encoding": {
-        "x": {
-            "field": "Year Label",
-            "type": "ordinal",
-            "sort": [
-                "2006",
-                "2012"
-            ],
-            "axis": {
-                "title": null,
-                "labelAngle": 0
-            }
-        },
-        "y": {
-            "field": "Rate",
-            "type": "quantitative",
-            "scale": {
-                "domain": [
-                    50,
-                    100
-                ]
-            },
-            "axis": {
-                "title": "Participation rate (%)"
-            }
-        },
-        "color": {
-            "field": "Activity",
-            "type": "nominal",
-            "scale": {
-                "domain": [
-                    "Bike riding",
-                    "Watching television or videos",
-                    "Reading for pleasure",
-                    "Internet access"
-                ],
-                "range": [
-                    "#4F7D5B",
-                    "#8D99AE",
-                    "#D99A4E",
-                    "#8B5E83"
-                ]
-            },
-            "legend": {
-                "title": null,
-                "orient": "bottom",
-                "direction": "vertical",
-                "columns": 2,
-                "columnPadding": 15,
-                "rowPadding": 10,
-                "labelFontSize": 13,
-                "labelLimit": 250,
-                "symbolSize": 120
-            }
-        }
-    },
-    "layer": [
+    "vconcat": [
         {
+            "width": "container",
+            "height": 290,
+            "transform": [
+                {
+                    "filter": {
+                        "param": "yearWindow"
+                    }
+                }
+            ],
+            "layer": [
+                {
+                    "mark": {
+                        "type": "line",
+                        "point": {
+                            "filled": true,
+                            "size": 65
+                        },
+                        "strokeWidth": 2.5
+                    },
+                    "encoding": {
+                        "x": {
+                            "field": "Year",
+                            "type": "quantitative",
+                            "scale": {
+                                "domain": [
+                                    2017,
+                                    2025
+                                ],
+                                "nice": false
+                            },
+                            "axis": {
+                                "title": "Year",
+                                "format": "d",
+                                "tickMinStep": 1,
+                                "labelFontSize": 10,
+                                "grid": false
+                            }
+                        },
+                        "y": {
+                            "field": "Participants",
+                            "type": "quantitative",
+                            "scale": {
+                                "zero": true
+                            },
+                            "axis": {
+                                "title": "Estimated adult participants",
+                                "format": "~s",
+                                "grid": true,
+                                "gridColor": "#E7ECE6"
+                            }
+                        },
+                        "color": {
+                            "field": "ActivityLabel",
+                            "type": "nominal",
+                            "scale": {
+                                "domain": [
+                                    "Walking",
+                                    "Swimming",
+                                    "Running",
+                                    "Cycling",
+                                    "Bush walking"
+                                ],
+                                "range": [
+                                    "#4E7A6E",
+                                    "#6B4C7A",
+                                    "#C29B38",
+                                    "#8A6F5A",
+                                    "#928EB1"
+                                ]
+                            },
+                            "legend": {
+                                "title": "Activity",
+                                "orient": "top",
+                                "direction": "horizontal",
+                                "columns": 5,
+                                "labelFontSize": 11,
+                                "titleFontSize": 12,
+                                "labelLimit": 180,
+                                "symbolType": "stroke",
+                                "symbolStrokeWidth": 3
+                            }
+                        },
+                        "detail": {
+                            "field": "ActivityLabel",
+                            "type": "nominal"
+                        },
+                        "tooltip": [
+                            {
+                                "field": "ActivityLabel",
+                                "type": "nominal",
+                                "title": "Activity"
+                            },
+                            {
+                                "field": "Period",
+                                "type": "nominal",
+                                "title": "Survey period"
+                            },
+                            {
+                                "field": "Year",
+                                "type": "quantitative",
+                                "title": "Year",
+                                "format": "d"
+                            },
+                            {
+                                "field": "Participants",
+                                "type": "quantitative",
+                                "title": "Estimated participants",
+                                "format": ",.0f"
+                            }
+                        ]
+                    }
+                }
+            ]
+        },
+        {
+            "name": "yearOverview",
+            "width": "container",
+            "height": 65,
             "mark": {
-                "type": "line",
-                "strokeWidth": 2.5
+                "type": "area",
+                "opacity": 0.25,
+                "color": "#4E7A6E",
+                "line": {
+                    "color": "#4E7A6E",
+                    "strokeWidth": 1.5
+                }
             },
             "encoding": {
+                "x": {
+                    "field": "Year",
+                    "type": "quantitative",
+                    "scale": {
+                        "domain": [
+                            2017,
+                            2025
+                        ],
+                        "nice": false
+                    },
+                    "axis": {
+                        "title": "Drag across years to filter the line chart",
+                        "format": "d",
+                        "tickMinStep": 1,
+                        "labelAngle": 0,
+                        "grid": false
+                    }
+                },
+                "y": {
+                    "aggregate": "sum",
+                    "field": "Participants",
+                    "type": "quantitative",
+                    "axis": null,
+                    "scale": {
+                        "zero": true
+                    }
+                },
                 "tooltip": [
                     {
-                        "field": "Activity"
-                    },
-                    {
                         "field": "Year",
-                        "type": "ordinal"
+                        "type": "quantitative",
+                        "title": "Year",
+                        "format": "d"
                     },
                     {
-                        "field": "Rate",
+                        "aggregate": "sum",
+                        "field": "Participants",
                         "type": "quantitative",
-                        "format": ".1f"
+                        "title": "Total estimated participants",
+                        "format": ",.0f"
                     }
                 ]
-            }
-        },
-        {
-            "mark": {
-                "type": "point",
-                "filled": true,
-                "size": 85
-            }
-        },
-        {
-            "transform": [
-                {
-                    "filter": "datum.Year == 2006"
-                }
-            ],
-            "mark": {
-                "type": "text",
-                "align": "right",
-                "baseline": "middle",
-                "dx": -10,
-                "fontSize": 13,
-                "fontWeight": "bold"
             },
-            "encoding": {
-                "text": {
-                    "field": "Rate",
-                    "type": "quantitative",
-                    "format": ".1f"
-                }
-            }
-        },
-        {
-            "transform": [
+            "params": [
                 {
-                    "filter": "datum.Year == 2012"
+                    "name": "yearBrush",
+                    "select": {
+                        "type": "interval",
+                        "encodings": [
+                            "x"
+                        ]
+                    }
                 }
-            ],
-            "mark": {
-                "type": "text",
-                "align": "left",
-                "baseline": "middle",
-                "dx": 10,
-                "fontSize": 13,
-                "fontWeight": "bold"
-            },
-            "encoding": {
-                "text": {
-                    "field": "Rate",
-                    "type": "quantitative",
-                    "format": ".1f"
-                }
-            }
+            ]
         }
-    ]
+    ],
+    "resolve": {
+        "scale": {
+            "x": "shared"
+        }
+    },
+    "config": {
+        "view": {
+            "stroke": null
+        },
+        "font": "Arial",
+        "axis": {
+            "labelColor": "#4B554D",
+            "titleColor": "#303830",
+            "domainColor": "#CDD5CC",
+            "tickColor": "#CDD5CC"
+        }
+    }
 }

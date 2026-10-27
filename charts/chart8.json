@@ -1,0 +1,262 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
+    "title": {
+        "text": "Average Participation Spending by Age and Gender",
+        "anchor": "start",
+        "fontSize": 20,
+        "subtitleFontSize": 14,
+        "offset": 14
+    },
+    "width": "container",
+    "height": 320,
+    "data": {
+        "values": [
+            {
+                "Age": "15–17",
+                "Gender": "Female",
+                "Spending": 1050
+            },
+            {
+                "Age": "18–24",
+                "Gender": "Female",
+                "Spending": 1060
+            },
+            {
+                "Age": "25–34",
+                "Gender": "Female",
+                "Spending": 1200
+            },
+            {
+                "Age": "35–44",
+                "Gender": "Female",
+                "Spending": 1235
+            },
+            {
+                "Age": "45–54",
+                "Gender": "Female",
+                "Spending": 1763
+            },
+            {
+                "Age": "55–64",
+                "Gender": "Female",
+                "Spending": 1510
+            },
+            {
+                "Age": "65+",
+                "Gender": "Female",
+                "Spending": 1054
+            },
+            {
+                "Age": "15–17",
+                "Gender": "Male",
+                "Spending": 967
+            },
+            {
+                "Age": "18–24",
+                "Gender": "Male",
+                "Spending": 1125
+            },
+            {
+                "Age": "25–34",
+                "Gender": "Male",
+                "Spending": 1159
+            },
+            {
+                "Age": "35–44",
+                "Gender": "Male",
+                "Spending": 1335
+            },
+            {
+                "Age": "45–54",
+                "Gender": "Male",
+                "Spending": 1500
+            },
+            {
+                "Age": "55–64",
+                "Gender": "Male",
+                "Spending": 1792
+            },
+            {
+                "Age": "65+",
+                "Gender": "Male",
+                "Spending": 1718
+            }
+        ]
+    },
+    "layer": [
+        {
+            "mark": {
+                "type": "bar",
+                "cornerRadiusEnd": 3
+            },
+            "encoding": {
+                "x": {
+                    "field": "Age",
+                    "type": "ordinal",
+                    "sort": [
+                        "15–17",
+                        "18–24",
+                        "25–34",
+                        "35–44",
+                        "45–54",
+                        "55–64",
+                        "65+"
+                    ],
+                    "axis": {
+                        "title": "Age group",
+                        "labelAngle": 0
+                    }
+                },
+                "xOffset": {
+                    "field": "Gender",
+                    "sort": [
+                        "Male",
+                        "Female"
+                    ]
+                },
+                "y": {
+                    "field": "Spending",
+                    "type": "quantitative",
+                    "scale": {
+                        "zero": true
+                    },
+                    "axis": {
+                        "title": "Average spending ($)",
+                        "format": "$,.0f",
+                        "grid": true
+                    }
+                },
+                "color": {
+                    "field": "Gender",
+                    "type": "nominal",
+                    "scale": {
+                        "domain": [
+                            "Male",
+                            "Female"
+                        ],
+                        "range": [
+                            "#4F7B94",
+                            "#D98E65"
+                        ]
+                    },
+                    "legend": {
+                        "title": "Gender",
+                        "orient": "top",
+                        "direction": "horizontal",
+                        "columns": 2,
+                        "labelFontSize": 11,
+                        "titleFontSize": 12
+                    }
+                },
+                "tooltip": [
+                    {
+                        "field": "Age",
+                        "type": "ordinal",
+                        "title": "Age group"
+                    },
+                    {
+                        "field": "Gender",
+                        "type": "nominal"
+                    },
+                    {
+                        "field": "Spending",
+                        "type": "quantitative",
+                        "title": "Average spending",
+                        "format": "$,.0f"
+                    }
+                ]
+            }
+        },
+        {
+            "data": {
+                "values": [
+                    {
+                        "Age": "65+",
+                        "Spending": 1200,
+                        "label": "Women's spending drops by $456\nafter age 65.",
+                        "lineX": "65+",
+                        "lineX2": "65+",
+                        "lineY": 1054,
+                        "lineY2": 1150,
+                        "textX": "65+",
+                        "textY": 1200
+                    }
+                ]
+            },
+            "layer": [
+                {
+                    "mark": {
+                        "type": "rule",
+                        "color": "#D98E65",
+                        "strokeWidth": 1
+                    },
+                    "encoding": {
+                        "x": {
+                            "field": "lineX",
+                            "type": "ordinal"
+                        },
+                        "x2": {
+                            "field": "lineX2"
+                        },
+                        "y": {
+                            "field": "lineY",
+                            "type": "quantitative"
+                        },
+                        "y2": {
+                            "field": "lineY2"
+                        }
+                    }
+                },
+                {
+                    "mark": {
+                        "type": "text",
+                        "align": "left",
+                        "baseline": "middle",
+                        "dx": 12,
+                        "dy": 0,
+                        "fontSize": 11,
+                        "fontWeight": "bold",
+                        "color": "#000000"
+                    },
+                    "encoding": {
+                        "x": {
+                            "field": "textX",
+                            "type": "ordinal"
+                        },
+                        "y": {
+                            "field": "textY",
+                            "type": "quantitative"
+                        },
+                        "text": {
+                            "field": "label"
+                        }
+                    }
+                }
+            ]
+        }
+    ],
+    "config": {
+        "font": "Source Sans 3",
+        "view": {
+            "stroke": null
+        },
+        "title": {
+            "fontSize": 20,
+            "subtitleFontSize": 14,
+            "fontWeight": "bold",
+            "subtitleFontWeight": "normal",
+            "anchor": "start",
+            "offset": 14
+        },
+        "axis": {
+            "labelFontSize": 12,
+            "titleFontSize": 13,
+            "titleFontWeight": "normal"
+        },
+        "legend": {
+            "labelFontSize": 12,
+            "titleFontSize": 13,
+            "titleFontWeight": "normal"
+        }
+    }
+}

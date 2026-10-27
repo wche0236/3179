@@ -32,16 +32,16 @@
         "format": {
             "type": "csv",
             "parse": {
-                "Males": "number",
-                "Females": "number"
+                "Male": "number",
+                "Female": "number"
             }
         }
     },
     "transform": [
         {
             "fold": [
-                "Males",
-                "Females"
+                "Male",
+                "Female"
             ],
             "as": [
                 "Gender",
@@ -49,7 +49,7 @@
             ]
         },
         {
-            "calculate": "datum.Gender == 'Males' ? -datum.Rate : datum.Rate",
+            "calculate": "datum.Gender == 'Male' ? -datum.Rate : datum.Rate",
             "as": "Signed Rate"
         }
     ],
@@ -62,7 +62,7 @@
                 "Increasing age",
                 "Disability",
                 "Dislike physical activity",
-                "Cannot afford it",
+                "Cannot afford",
                 "Not a priority",
                 "Physical job",
                 "Too competitive"
@@ -101,17 +101,21 @@
             "type": "nominal",
             "scale": {
                 "domain": [
-                    "Males",
-                    "Females"
+                    "Male",
+                    "Female"
                 ],
                 "range": [
-                    "#537D96",
-                    "#D88D65"
+                    "#4F7B94",
+                    "#D98E65"
                 ]
             },
             "legend": {
                 "title": "Gender",
-                "orient": "right"
+                "orient": "bottom",
+                "direction": "horizontal",
+                "columns": 2,
+                "labelFontSize": 11,
+                "titleFontSize": 12
             }
         },
         "tooltip": [
@@ -139,7 +143,7 @@
         {
             "transform": [
                 {
-                    "filter": "datum.Gender == 'Males'"
+                    "filter": "datum.Gender == 'Male'"
                 }
             ],
             "mark": {
@@ -162,7 +166,7 @@
         {
             "transform": [
                 {
-                    "filter": "datum.Gender == 'Females'"
+                    "filter": "datum.Gender == 'Female'"
                 }
             ],
             "mark": {

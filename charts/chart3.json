@@ -101,10 +101,16 @@
                 "scheme": "yellowgreenblue"
             },
             "legend": {
+                "fontWeight": "bold",
                 "orient": "bottom",
                 "direction": "horizontal",
                 "gradientLength": 220,
-                "title": "Participants (%)"
+                "title": "Participants (%)",
+                "values": [
+                    0,
+                    75
+                ],
+                "labelExpr": "datum.value === 0 ? '0%' : datum.value === 75 ? '75%' : null"
             }
         },
         "tooltip": [
@@ -125,16 +131,27 @@
         ]
     },
     "config": {
+        "font": "Source Sans 3",
         "view": {
             "stroke": null
         },
+        "title": {
+            "fontSize": 20,
+            "subtitleFontSize": 14,
+            "fontWeight": "bold",
+            "subtitleFontWeight": "normal",
+            "anchor": "start",
+            "offset": 14
+        },
         "axis": {
-            "labelFontSize": 14,
-            "titleFontSize": 15
+            "labelFontSize": 12,
+            "titleFontSize": 13,
+            "titleFontWeight": "normal"
         },
         "legend": {
-            "labelFontSize": 14,
-            "titleFontSize": 14
+            "labelFontSize": 12,
+            "titleFontSize": 13,
+            "titleFontWeight": "normal"
         }
     }
 }

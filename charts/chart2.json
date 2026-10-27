@@ -7,8 +7,8 @@
         "contains": "padding"
     },
     "title": {
-        "text": "Gender Composition Across Recreation Activities",
-        "subtitle": "Percentage of male and female participants within each selected activity, 2025",
+        "text": "Gender Composition Across Activities",
+        "subtitle": "Percentage of male and female participants in the top 10 activities, 2025",
         "anchor": "start",
         "fontSize": 20,
         "subtitleFontSize": 14,
@@ -23,20 +23,20 @@
             "type": "nominal",
             "title": null,
             "sort": [
-                "Walking (Recreational)",
+                "Walking",
                 "Bush walking",
-                "Running/jogging",
+                "Running",
                 "Swimming",
                 "Cycling",
                 "Golf",
                 "Surfing",
-                "Fishing (recreational)",
-                "Canoeing/Kayaking",
+                "Fishing",
+                "Kayaking",
                 "Mountain climbing"
             ],
             "axis": {
                 "labelFontSize": 11,
-                "labelLimit": 135
+                "labelLimit": 230
             }
         }
     },
@@ -45,7 +45,7 @@
             "mark": {
                 "type": "rule",
                 "strokeWidth": 2,
-                "color": "#777777"
+                "color": "#B0B0B0"
             },
             "encoding": {
                 "x": {
@@ -68,7 +68,8 @@
             "mark": {
                 "type": "point",
                 "filled": true,
-                "size": 100
+                "size": 120,
+                "opacity": 1
             },
             "encoding": {
                 "x": {
@@ -84,14 +85,15 @@
                             "Female"
                         ],
                         "range": [
-                            "#537D96",
-                            "#D88D65"
+                            "#4F7B94",
+                            "#D98E65"
                         ]
                     },
                     "legend": {
                         "title": "Gender",
-                        "orient": "right",
-                        "direction": "vertical",
+                        "orient": "bottom",
+                        "direction": "horizontal",
+                        "columns": 2,
                         "labelFontSize": 11,
                         "titleFontSize": 12,
                         "symbolSize": 100,
@@ -117,7 +119,8 @@
             "mark": {
                 "type": "point",
                 "filled": true,
-                "size": 100
+                "size": 120,
+                "opacity": 1
             },
             "encoding": {
                 "x": {
@@ -133,8 +136,8 @@
                             "Female"
                         ],
                         "range": [
-                            "#537D96",
-                            "#D88D65"
+                            "#4F7B94",
+                            "#D98E65"
                         ]
                     }
                 },
@@ -155,16 +158,27 @@
         }
     ],
     "config": {
+        "font": "Source Sans 3",
         "view": {
             "stroke": null
         },
+        "title": {
+            "fontSize": 20,
+            "subtitleFontSize": 14,
+            "fontWeight": "bold",
+            "subtitleFontWeight": "normal",
+            "anchor": "start",
+            "offset": 14
+        },
         "axis": {
-            "labelFontSize": 14,
-            "titleFontSize": 15
+            "labelFontSize": 12,
+            "titleFontSize": 13,
+            "titleFontWeight": "normal"
         },
         "legend": {
-            "labelFontSize": 14,
-            "titleFontSize": 14
+            "labelFontSize": 12,
+            "titleFontSize": 13,
+            "titleFontWeight": "normal"
         }
     }
 }

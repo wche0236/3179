@@ -8,7 +8,7 @@
     },
     "title": {
         "text": "Most Popular Outdoor Activities",
-        "subtitle": "Estimated participants in selected activities, 2025",
+        "subtitle": "Estimated participants in the top 10 activities, 2025",
         "anchor": "start",
         "fontSize": 20,
         "subtitleFontSize": 14,
@@ -23,9 +23,15 @@
             }
         }
     },
+    "transform": [
+        {
+            "calculate": "datum.Activity === 'Walking (Recreational)' ? 'Walking' : datum.Activity",
+            "as": "DisplayActivity"
+        }
+    ],
     "encoding": {
         "y": {
-            "field": "Activity",
+            "field": "DisplayActivity",
             "type": "nominal",
             "sort": {
                 "field": "Participants",
@@ -35,7 +41,7 @@
             "title": null,
             "axis": {
                 "labelFontSize": 11,
-                "labelLimit": 135
+                "labelLimit": 200
             }
         },
         "x": {
@@ -47,7 +53,7 @@
             },
             "scale": {
                 "zero": true,
-                "nice": true
+                "domainMax": 13000000
             }
         }
     },
@@ -56,15 +62,16 @@
             "mark": {
                 "type": "bar",
                 "height": 2,
-                "color": "orange"
+                "color": "#C29B38"
             }
         },
         {
             "mark": {
                 "type": "point",
                 "filled": true,
-                "size": 100,
-                "color": "orange"
+                "size": 120,
+                "color": "#C29B38",
+                "tooltip": true
             },
             "encoding": {
                 "tooltip": [
@@ -94,16 +101,22 @@
                     ]
                 },
                 {
-                    "filter": "datum.Participants == datum.MaxParticipants"
+                    "filter": "datum.Participants === datum.MaxParticipants"
                 }
             ],
             "mark": {
-                "type": "point",
-                "filled": true,
-                "size": 170,
-                "color": "#B85C00",
-                "stroke": "#FFFFFF",
-                "strokeWidth": 1.5
+                "type": "text",
+                "align": "left",
+                "baseline": "middle",
+                "dx": 12,
+                "fontSize": 14,
+                "fontWeight": "bold",
+                "color": "#000000"
+            },
+            "encoding": {
+                "text": {
+                    "value": "11.3M"
+                }
             }
         },
         {
@@ -118,38 +131,82 @@
                     ]
                 },
                 {
-                    "filter": "datum.Participants == datum.MaxParticipants"
+                    "filter": "datum.Participants === datum.MaxParticipants"
                 }
             ],
             "mark": {
                 "type": "text",
-                "align": "center",
+                "align": "right",
                 "baseline": "bottom",
+                "dx": -10,
                 "dy": -12,
-                "fontSize": 15,
+                "fontSize": 12,
                 "fontWeight": "bold",
-                "color": "#B85C00"
+                "color": "#000000"
             },
             "encoding": {
                 "text": {
+                    "value": "THE CLEAR LEADER"
+                }
+            }
+        },
+        {
+            "data": {
+                "values": [
+                    {
+                        "Activity": "Walking",
+                        "Participants": 4500000,
+                        "annotation": "Walking attracts nearly 3 times more than the next activity."
+                    }
+                ]
+            },
+            "mark": {
+                "type": "text",
+                "align": "left",
+                "baseline": "middle",
+                "fontWeight": "bold",
+                "fontSize": 12,
+                "color": "#000000",
+                "dx": 0,
+                "dy": 35
+            },
+            "encoding": {
+                "x": {
                     "field": "Participants",
-                    "type": "quantitative",
-                    "format": ".3s"
+                    "type": "quantitative"
+                },
+                "y": {
+                    "field": "Activity",
+                    "type": "nominal"
+                },
+                "text": {
+                    "field": "annotation"
                 }
             }
         }
     ],
     "config": {
+        "font": "Source Sans 3",
         "view": {
             "stroke": null
         },
+        "title": {
+            "fontSize": 20,
+            "subtitleFontSize": 14,
+            "fontWeight": "bold",
+            "subtitleFontWeight": "normal",
+            "anchor": "start",
+            "offset": 14
+        },
         "axis": {
-            "labelFontSize": 14,
-            "titleFontSize": 15
+            "labelFontSize": 12,
+            "titleFontSize": 13,
+            "titleFontWeight": "normal"
         },
         "legend": {
-            "labelFontSize": 14,
-            "titleFontSize": 14
+            "labelFontSize": 12,
+            "titleFontSize": 13,
+            "titleFontWeight": "normal"
         }
     }
 }

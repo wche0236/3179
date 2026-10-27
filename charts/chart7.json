@@ -1,0 +1,338 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
+    "width": "container",
+    "height": 400,
+    "autosize": {
+        "type": "fit",
+        "contains": "padding"
+    },
+    "title": {
+        "text": "Public Spaces Are Where Australians Are Most Often Active",
+        "subtitle": "Of every 100 places where active adults take part, which types are they? One square = 1 in 100",
+        "anchor": "start",
+        "font": "Source Sans 3",
+        "fontSize": 20,
+        "subtitleFont": "Source Sans 3",
+        "subtitleFontSize": 14,
+        "offset": 14
+    },
+    "data": {
+        "url": "data/waffle_places.csv",
+        "format": {
+            "type": "csv",
+            "parse": {
+                "Order": "number",
+                "SummedRate": "number",
+                "Share": "number",
+                "Squares": "number"
+            }
+        }
+    },
+    "transform": [
+        {
+            "window": [
+                {
+                    "op": "sum",
+                    "field": "Squares",
+                    "as": "cum"
+                }
+            ],
+            "sort": [
+                {
+                    "field": "Order"
+                }
+            ],
+            "frame": [
+                null,
+                0
+            ]
+        },
+        {
+            "calculate": "datum.cum - datum.Squares",
+            "as": "start"
+        },
+        {
+            "calculate": "sequence(datum.Squares)",
+            "as": "idx"
+        },
+        {
+            "flatten": [
+                "idx"
+            ]
+        },
+        {
+            "calculate": "datum.start + datum.idx",
+            "as": "pos"
+        },
+        {
+            "calculate": "datum.pos % 10",
+            "as": "col"
+        },
+        {
+            "calculate": "floor(datum.pos / 10)",
+            "as": "row"
+        }
+    ],
+    "layer": [
+        {
+            "mark": {
+                "type": "square",
+                "size": 1500,
+                "opacity": 1,
+                "stroke": "#FFFFFF",
+                "strokeWidth": 1
+            },
+            "encoding": {
+                "x": {
+                    "field": "col",
+                    "type": "quantitative",
+                    "scale": {
+                        "domain": [
+                            -0.5,
+                            17
+                        ],
+                        "nice": false
+                    },
+                    "axis": null
+                },
+                "y": {
+                    "field": "row",
+                    "type": "quantitative",
+                    "scale": {
+                        "domain": [
+                            -0.5,
+                            9.5
+                        ],
+                        "reverse": true,
+                        "nice": false
+                    },
+                    "axis": null
+                },
+                "color": {
+                    "field": "Category",
+                    "type": "nominal",
+                    "scale": {
+                        "domain": [
+                            "Public spaces",
+                            "Clubs and community facilities",
+                            "Gyms and commercial venues",
+                            "Home",
+                            "School and workplace"
+                        ],
+                        "range": [
+                            "#1F6B3A",
+                            "#8B5FA8",
+                            "#3B7CB5",
+                            "#E8A33D",
+                            "#9AA3AD"
+                        ]
+                    },
+                    "legend": null
+                },
+                "tooltip": [
+                    {
+                        "field": "Category",
+                        "type": "nominal",
+                        "title": "Place type"
+                    },
+                    {
+                        "field": "Squares",
+                        "type": "quantitative",
+                        "title": "Out of every 100"
+                    }
+                ]
+            }
+        },
+        {
+            "transform": [
+                {
+                    "filter": "datum.idx === 0"
+                },
+                {
+                    "calculate": "1 + datum.Order * 2",
+                    "as": "LabelY"
+                }
+            ],
+            "mark": {
+                "type": "square",
+                "size": 500,
+                "opacity": 1
+            },
+            "encoding": {
+                "x": {
+                    "datum": 10.9,
+                    "type": "quantitative",
+                    "scale": {
+                        "domain": [
+                            -0.5,
+                            17
+                        ],
+                        "nice": false
+                    },
+                    "axis": null
+                },
+                "y": {
+                    "field": "LabelY",
+                    "type": "quantitative",
+                    "scale": {
+                        "domain": [
+                            -0.5,
+                            9.5
+                        ],
+                        "reverse": true,
+                        "nice": false
+                    },
+                    "axis": null
+                },
+                "color": {
+                    "field": "Category",
+                    "type": "nominal",
+                    "scale": {
+                        "domain": [
+                            "Public spaces",
+                            "Clubs and community facilities",
+                            "Gyms and commercial venues",
+                            "Home",
+                            "School and work"
+                        ],
+                        "range": [
+                            "#1F6B3A",
+                            "#8B5FA8",
+                            "#3B7CB5",
+                            "#E8A33D",
+                            "#9AA3AD"
+                        ]
+                    },
+                    "legend": null
+                }
+            }
+        },
+        {
+            "transform": [
+                {
+                    "filter": "datum.idx === 0"
+                },
+                {
+                    "calculate": "1 + datum.Order * 2 - 0.4",
+                    "as": "NameY"
+                }
+            ],
+            "mark": {
+                "type": "text",
+                "align": "left",
+                "baseline": "middle",
+                "fontSize": 17,
+                "fontWeight": "bold",
+                "color": "#26372D"
+            },
+            "encoding": {
+                "x": {
+                    "datum": 11.9,
+                    "type": "quantitative",
+                    "scale": {
+                        "domain": [
+                            -0.5,
+                            17
+                        ],
+                        "nice": false
+                    },
+                    "axis": null
+                },
+                "y": {
+                    "field": "NameY",
+                    "type": "quantitative",
+                    "scale": {
+                        "domain": [
+                            -0.5,
+                            9.5
+                        ],
+                        "reverse": true,
+                        "nice": false
+                    },
+                    "axis": null
+                },
+                "text": {
+                    "field": "Category",
+                    "type": "nominal"
+                }
+            }
+        },
+        {
+            "transform": [
+                {
+                    "filter": "datum.idx === 0"
+                },
+                {
+                    "calculate": "1 + datum.Order * 2 + 0.45",
+                    "as": "NumY"
+                },
+                {
+                    "calculate": "datum.Squares + ' in every 100'",
+                    "as": "NumText"
+                }
+            ],
+            "mark": {
+                "type": "text",
+                "align": "left",
+                "baseline": "middle",
+                "fontSize": 15,
+                "color": "#627268"
+            },
+            "encoding": {
+                "x": {
+                    "datum": 11.9,
+                    "type": "quantitative",
+                    "scale": {
+                        "domain": [
+                            -0.5,
+                            17
+                        ],
+                        "nice": false
+                    },
+                    "axis": null
+                },
+                "y": {
+                    "field": "NumY",
+                    "type": "quantitative",
+                    "scale": {
+                        "domain": [
+                            -0.5,
+                            9.5
+                        ],
+                        "reverse": true,
+                        "nice": false
+                    },
+                    "axis": null
+                },
+                "text": {
+                    "field": "NumText",
+                    "type": "nominal"
+                }
+            }
+        }
+    ],
+    "config": {
+        "font": "Source Sans 3",
+        "view": {
+            "stroke": null
+        },
+        "title": {
+            "fontSize": 20,
+            "subtitleFontSize": 14,
+            "fontWeight": "bold",
+            "subtitleFontWeight": "normal",
+            "anchor": "start",
+            "offset": 14
+        },
+        "axis": {
+            "labelFontSize": 12,
+            "titleFontSize": 13,
+            "titleFontWeight": "normal"
+        },
+        "legend": {
+            "labelFontSize": 12,
+            "titleFontSize": 13,
+            "titleFontWeight": "normal"
+        }
+    }
+}

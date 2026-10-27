@@ -1,0 +1,600 @@
+{
+    "$schema": "https://vega.github.io/schema/vega/v6.json",
+    "height": 350,
+    "padding": 5,
+    "autosize": {
+        "type": "fit-x",
+        "contains": "padding"
+    },
+    "title": {
+        "text": "Sport Gives Way to Non-Sport Activity With Age",
+        "subtitle": "Estimated adult participants (15+) by age group and type of activity",
+        "anchor": "start",
+        "fontSize": 20,
+        "subtitleFontSize": 14,
+        "offset": 14
+    },
+    "signals": [
+        {
+            "name": "width",
+            "init": "isFinite(containerSize()[0]) ? containerSize()[0] : 200",
+            "on": [
+                {
+                    "events": "window:resize",
+                    "update": "isFinite(containerSize()[0]) ? containerSize()[0] : 200"
+                }
+            ]
+        },
+        {
+            "name": "gender",
+            "value": "All",
+            "bind": {
+                "input": "radio",
+                "options": [
+                    "All",
+                    "Male",
+                    "Female"
+                ],
+                "name": "Show: "
+            }
+        },
+        {
+            "name": "gap",
+            "value": 10
+        },
+        {
+            "name": "nodeW",
+            "value": 14
+        },
+        {
+            "name": "totalPeople",
+            "update": "data('total').length ? data('total')[0].total : 1"
+        },
+        {
+            "name": "k",
+            "update": "(height - 6 * gap) / totalPeople"
+        },
+        {
+            "name": "linkHover",
+            "value": null,
+            "on": [
+                {
+                    "events": "@linkMarks:mouseover",
+                    "update": "datum"
+                },
+                {
+                    "events": "@linkMarks:mouseout",
+                    "update": "null"
+                }
+            ]
+        }
+    ],
+    "data": [
+        {
+            "name": "raw",
+            "url": "data/sankey_sport_nonsport.csv",
+            "format": {
+                "type": "csv",
+                "parse": {
+                    "Participants": "number"
+                }
+            }
+        },
+        {
+            "name": "flows",
+            "source": "raw",
+            "transform": [
+                {
+                    "type": "filter",
+                    "expr": "datum.Gender === gender"
+                },
+                {
+                    "type": "formula",
+                    "as": "ageIdx",
+                    "expr": "indexof(['15-17','18-24','25-34','35-44','45-54','55-64','65+'], datum.Age)"
+                },
+                {
+                    "type": "formula",
+                    "as": "catIdx",
+                    "expr": "indexof(['Sport only','Sport and non-sport','Non-sport only'], datum.Category)"
+                }
+            ]
+        },
+        {
+            "name": "total",
+            "source": "flows",
+            "transform": [
+                {
+                    "type": "aggregate",
+                    "fields": [
+                        "Participants"
+                    ],
+                    "ops": [
+                        "sum"
+                    ],
+                    "as": [
+                        "total"
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "ageNodes",
+            "source": "flows",
+            "transform": [
+                {
+                    "type": "aggregate",
+                    "groupby": [
+                        "Age",
+                        "ageIdx"
+                    ],
+                    "fields": [
+                        "Participants"
+                    ],
+                    "ops": [
+                        "sum"
+                    ],
+                    "as": [
+                        "v"
+                    ]
+                },
+                {
+                    "type": "collect",
+                    "sort": {
+                        "field": "ageIdx"
+                    }
+                },
+                {
+                    "type": "window",
+                    "ops": [
+                        "sum"
+                    ],
+                    "fields": [
+                        "v"
+                    ],
+                    "as": [
+                        "cum"
+                    ],
+                    "frame": [
+                        null,
+                        0
+                    ]
+                },
+                {
+                    "type": "formula",
+                    "as": "y0",
+                    "expr": "(datum.cum - datum.v) * k + datum.ageIdx * gap"
+                },
+                {
+                    "type": "formula",
+                    "as": "y1",
+                    "expr": "datum.y0 + datum.v * k"
+                }
+            ]
+        },
+        {
+            "name": "catNodes",
+            "source": "flows",
+            "transform": [
+                {
+                    "type": "aggregate",
+                    "groupby": [
+                        "Category",
+                        "catIdx"
+                    ],
+                    "fields": [
+                        "Participants"
+                    ],
+                    "ops": [
+                        "sum"
+                    ],
+                    "as": [
+                        "v"
+                    ]
+                },
+                {
+                    "type": "collect",
+                    "sort": {
+                        "field": "catIdx"
+                    }
+                },
+                {
+                    "type": "window",
+                    "ops": [
+                        "sum"
+                    ],
+                    "fields": [
+                        "v"
+                    ],
+                    "as": [
+                        "cum"
+                    ],
+                    "frame": [
+                        null,
+                        0
+                    ]
+                },
+                {
+                    "type": "formula",
+                    "as": "y0",
+                    "expr": "(datum.cum - datum.v) * k + datum.catIdx * 3 * gap"
+                },
+                {
+                    "type": "formula",
+                    "as": "y1",
+                    "expr": "datum.y0 + datum.v * k"
+                }
+            ]
+        },
+        {
+            "name": "links",
+            "source": "flows",
+            "transform": [
+                {
+                    "type": "lookup",
+                    "from": "ageNodes",
+                    "key": "Age",
+                    "fields": [
+                        "Age"
+                    ],
+                    "values": [
+                        "y0",
+                        "v"
+                    ],
+                    "as": [
+                        "ageY0",
+                        "ageTotal"
+                    ]
+                },
+                {
+                    "type": "lookup",
+                    "from": "catNodes",
+                    "key": "Category",
+                    "fields": [
+                        "Category"
+                    ],
+                    "values": [
+                        "y0"
+                    ],
+                    "as": [
+                        "catY0"
+                    ]
+                },
+                {
+                    "type": "window",
+                    "groupby": [
+                        "Age"
+                    ],
+                    "sort": {
+                        "field": "catIdx"
+                    },
+                    "ops": [
+                        "sum"
+                    ],
+                    "fields": [
+                        "Participants"
+                    ],
+                    "as": [
+                        "cumA"
+                    ],
+                    "frame": [
+                        null,
+                        0
+                    ]
+                },
+                {
+                    "type": "window",
+                    "groupby": [
+                        "Category"
+                    ],
+                    "sort": {
+                        "field": "ageIdx"
+                    },
+                    "ops": [
+                        "sum"
+                    ],
+                    "fields": [
+                        "Participants"
+                    ],
+                    "as": [
+                        "cumC"
+                    ],
+                    "frame": [
+                        null,
+                        0
+                    ]
+                },
+                {
+                    "type": "formula",
+                    "as": "sx",
+                    "expr": "nodeW"
+                },
+                {
+                    "type": "formula",
+                    "as": "tx",
+                    "expr": "width - nodeW"
+                },
+                {
+                    "type": "formula",
+                    "as": "sy",
+                    "expr": "datum.ageY0 + (datum.cumA - datum.Participants) * k + datum.Participants * k / 2"
+                },
+                {
+                    "type": "formula",
+                    "as": "ty",
+                    "expr": "datum.catY0 + (datum.cumC - datum.Participants) * k + datum.Participants * k / 2"
+                },
+                {
+                    "type": "linkpath",
+                    "sourceX": "sx",
+                    "sourceY": "sy",
+                    "targetX": "tx",
+                    "targetY": "ty",
+                    "orient": "horizontal",
+                    "shape": "diagonal"
+                }
+            ]
+        }
+    ],
+    "scales": [
+        {
+            "name": "color",
+            "type": "ordinal",
+            "domain": [
+                "Sport only",
+                "Sport and non-sport",
+                "Non-sport only"
+            ],
+            "range": [
+                "#6b5b95",
+                "#b56576",
+                "#6d6875"
+            ]
+        }
+    ],
+    "marks": [
+        {
+            "type": "text",
+            "encode": {
+                "enter": {
+                    "x": {
+                        "value": -5
+                    },
+                    "y": {
+                        "value": -14
+                    },
+                    "text": {
+                        "value": "AGE GROUP"
+                    },
+                    "fontSize": {
+                        "value": 11
+                    },
+                    "fontWeight": {
+                        "value": "bold"
+                    },
+                    "fill": {
+                        "value": "#5d6b82"
+                    }
+                }
+            }
+        },
+        {
+            "type": "text",
+            "encode": {
+                "update": {
+                    "x": {
+                        "signal": "width - nodeW"
+                    },
+                    "y": {
+                        "value": -14
+                    },
+                    "text": {
+                        "value": "TYPE OF ACTIVITY"
+                    },
+                    "fontSize": {
+                        "value": 11
+                    },
+                    "fontWeight": {
+                        "value": "bold"
+                    },
+                    "fill": {
+                        "value": "#5d6b82"
+                    }
+                }
+            }
+        },
+        {
+            "type": "path",
+            "name": "linkMarks",
+            "from": {
+                "data": "links"
+            },
+            "encode": {
+                "update": {
+                    "path": {
+                        "field": "path"
+                    },
+                    "fill": {
+                        "value": null
+                    },
+                    "stroke": {
+                        "scale": "color",
+                        "field": "Category"
+                    },
+                    "strokeWidth": {
+                        "signal": "datum.Participants * k"
+                    },
+                    "strokeOpacity": [
+                        {
+                            "test": "linkHover && linkHover.Age === datum.Age && linkHover.Category === datum.Category",
+                            "value": 0.85
+                        },
+                        {
+                            "test": "linkHover",
+                            "value": 0.15
+                        },
+                        {
+                            "value": 0.5
+                        }
+                    ],
+                    "tooltip": {
+                        "signal": "{'Age group': replace(datum.Age, '-', '–'), 'Activity type': datum.Category, 'Participants': format(datum.Participants, ','), 'Share of age group': format(datum.Participants / datum.ageTotal, '.0%')}"
+                    }
+                }
+            }
+        },
+        {
+            "type": "rect",
+            "from": {
+                "data": "ageNodes"
+            },
+            "encode": {
+                "update": {
+                    "x": {
+                        "value": 0
+                    },
+                    "width": {
+                        "signal": "nodeW"
+                    },
+                    "y": {
+                        "field": "y0"
+                    },
+                    "y2": {
+                        "field": "y1"
+                    },
+                    "fill": {
+                        "value": "#b0a8b9"
+                    },
+                    "cornerRadius": {
+                        "value": 3
+                    }
+                }
+            }
+        },
+        {
+            "type": "text",
+            "from": {
+                "data": "ageNodes"
+            },
+            "encode": {
+                "update": {
+                    "x": {
+                        "value": -8
+                    },
+                    "y": {
+                        "signal": "(datum.y0 + datum.y1) / 2"
+                    },
+                    "align": {
+                        "value": "right"
+                    },
+                    "baseline": {
+                        "value": "middle"
+                    },
+                    "text": {
+                        "signal": "replace(datum.Age, '-', '–')"
+                    },
+                    "fontSize": {
+                        "value": 13
+                    },
+                    "fill": {
+                        "value": "#1b2a41"
+                    }
+                }
+            }
+        },
+        {
+            "type": "rect",
+            "from": {
+                "data": "catNodes"
+            },
+            "encode": {
+                "update": {
+                    "x": {
+                        "signal": "width - nodeW"
+                    },
+                    "width": {
+                        "signal": "nodeW"
+                    },
+                    "y": {
+                        "field": "y0"
+                    },
+                    "y2": {
+                        "field": "y1"
+                    },
+                    "fill": {
+                        "scale": "color",
+                        "field": "Category"
+                    },
+                    "cornerRadius": {
+                        "value": 3
+                    }
+                }
+            }
+        },
+        {
+            "type": "text",
+            "from": {
+                "data": "catNodes"
+            },
+            "encode": {
+                "update": {
+                    "x": {
+                        "signal": "width + 8"
+                    },
+                    "y": {
+                        "signal": "(datum.y0 + datum.y1) / 2"
+                    },
+                    "dy": {
+                        "value": -8
+                    },
+                    "baseline": {
+                        "value": "middle"
+                    },
+                    "text": {
+                        "field": "Category"
+                    },
+                    "fontSize": {
+                        "value": 14
+                    },
+                    "fontWeight": {
+                        "value": "bold"
+                    },
+                    "fill": {
+                        "value": "#1b2a41"
+                    }
+                }
+            }
+        },
+        {
+            "type": "text",
+            "from": {
+                "data": "catNodes"
+            },
+            "encode": {
+                "update": {
+                    "x": {
+                        "signal": "width + 8"
+                    },
+                    "y": {
+                        "signal": "(datum.y0 + datum.y1) / 2"
+                    },
+                    "dy": {
+                        "value": 9
+                    },
+                    "baseline": {
+                        "value": "middle"
+                    },
+                    "text": {
+                        "signal": "format(datum.v / 1000000, '.1f') + 'M people · ' + format(datum.v / totalPeople, '.0%')"
+                    },
+                    "fontSize": {
+                        "value": 12
+                    },
+                    "fill": {
+                        "value": "#5d6b82"
+                    }
+                }
+            }
+        }
+    ]
+}
