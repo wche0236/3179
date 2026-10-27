@@ -1,7 +1,7 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
   "width": "container",
-  "height": 500,
+  "height": 450,
   "autosize": {
     "type": "fit",
     "contains": "padding"
@@ -50,7 +50,7 @@
           "field": "Participation",
           "type": "quantitative",
           "scale": {
-            "scheme": "blues"
+            "scheme": "browns"
           },
           "title": "Weekly participation (%)",
           "legend": {
