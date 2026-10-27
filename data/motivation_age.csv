@@ -27,13 +27,13 @@ Age,Motivation,Percentage
 45–54,Enjoy nature,51.6
 55–64,Enjoy nature,57.5
 65+,Enjoy nature,53.0
-15–17,Social reasons,56.6
-18–24,Social reasons,54.6
-25–34,Social reasons,49.2
-35–44,Social reasons,42.2
-45–54,Social reasons,38.6
-55–64,Social reasons,39.5
-65+,Social reasons,40.0
+15–17,Social,56.6
+18–24,Social,54.6
+25–34,Social,49.2
+35–44,Social,42.2
+45–54,Social,38.6
+55–64,Social,39.5
+65+,Social,40.0
 15–17,Mental health,27.1
 18–24,Mental health,36.5
 25–34,Mental health,42.4
@@ -55,13 +55,13 @@ Age,Motivation,Percentage
 45–54,Hobby,21.2
 55–64,Hobby,17.3
 65+,Hobby,12.0
-15–17,Training purpose,34.6
-18–24,Training purpose,31.1
-25–34,Training purpose,27.3
-35–44,Training purpose,21.8
-45–54,Training purpose,18.8
-55–64,Training purpose,15.0
-65+,Training purpose,8.0
+15–17,Training,34.6
+18–24,Training,31.1
+25–34,Training,27.3
+35–44,Training,21.8
+45–54,Training,18.8
+55–64,Training,15.0
+65+,Training,8.0
 15–17,Learn new skill,32.6
 18–24,Learn new skill,26.2
 25–34,Learn new skill,22.2
