@@ -52,11 +52,13 @@
           "scale": {
             "scheme": "browns"
           },
-          "title": "Weekly participation (%)",
+          "title": "Weekly participation",
           "legend": {
             "orient": "right",
             "direction": "vertical",
-            "gradientLength": 180
+            "gradientLength": 180,
+            "format": ".0f",
+            "labelExpr": "datum.value + '%'"
           }
         },
         "tooltip": [
